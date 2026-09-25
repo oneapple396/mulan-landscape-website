@@ -1,0 +1,1246 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mulan Landscape Inc.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
+<style>
+  :root{
+    --bg:#FBF9F3;
+    --surface:#FFFFFF;
+    --surface-alt:#EEF4EA;
+    --text:#20281F;
+    --text-muted:#5B6555;
+    --primary:#1F4A34;
+    --primary-strong:#123420;
+    --primary-soft:#DDEBDF;
+    --accent:#DD82A3;
+    --accent-soft:#F6D6E1;
+    --accent-strong:#C4638A;
+    --border:#DEE5D6;
+    --shadow:31,74,52;
+    --focus:#3F7D52;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1C15;
+      --surface:#16261D;
+      --surface-alt:#1C3226;
+      --text:#EAEFE4;
+      --text-muted:#A9B7A0;
+      --primary:#8ECBA1;
+      --primary-strong:#B6E0C0;
+      --primary-soft:#213A2A;
+      --accent:#F0A8C4;
+      --accent-soft:#3A2530;
+      --accent-strong:#F5C2D8;
+      --border:#2A3E30;
+      --shadow:0,0,0;
+      --focus:#8ECBA1;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1C15;
+    --surface:#16261D;
+    --surface-alt:#1C3226;
+    --text:#EAEFE4;
+    --text-muted:#A9B7A0;
+    --primary:#8ECBA1;
+    --primary-strong:#B6E0C0;
+    --primary-soft:#213A2A;
+    --accent:#F0A8C4;
+    --accent-soft:#3A2530;
+    --accent-strong:#F5C2D8;
+    --border:#2A3E30;
+    --shadow:0,0,0;
+    --focus:#8ECBA1;
+    color-scheme:dark;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:"Fraunces",Georgia,serif;
+    font-weight:600;
+    color:var(--primary);
+    margin:0;
+    text-wrap:balance;
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  button{font:inherit;}
+  ::selection{background:var(--accent-soft);}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+  img{display:block;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .wrap-wide{max-width:1680px;}
+  .eyebrow{
+    font-family:"Work Sans",sans-serif;
+    font-weight:600;
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-strong);
+  }
+  .lede{color:var(--text-muted);font-size:1.05rem;max-width:52ch;}
+  section{position:relative;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+    padding:.85em 1.6em;border-radius:999px;border:1.5px solid transparent;
+    font-weight:600;font-size:.98rem;cursor:pointer;text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--surface);color:var(--primary);border-color:var(--border);}
+  .btn-primary:hover{background:var(--primary);color:var(--surface);border-color:var(--primary);box-shadow:0 8px 20px -8px rgba(var(--shadow),.55);}
+  .btn-ghost{background:transparent;color:var(--primary);border-color:var(--border);}
+  .btn-ghost:hover{background:var(--primary);color:var(--surface);border-color:var(--primary);box-shadow:0 8px 20px -8px rgba(var(--shadow),.55);}
+  .btn-accent{background:var(--accent);color:#2B1420;box-shadow:0 8px 20px -8px rgba(var(--shadow),.45);}
+  .btn-accent:hover{background:var(--accent-strong);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+  /* decorative leaves */
+  .leaf-field{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+  .leaf{position:absolute;fill:var(--primary-soft);opacity:.9;}
+
+  /* header */
+  .site-header{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .header-row{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px;}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15;}
+  .brand-text strong{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:var(--primary);}
+  .brand-text span{font-size:.66rem;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;}
+  nav.main-nav{display:flex;align-items:center;gap:28px;}
+  nav.main-nav a{font-weight:500;font-size:.94rem;text-decoration:none;color:var(--text);padding:4px 2px;border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{border-color:var(--accent);}
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .phone-pill{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;color:var(--primary);text-decoration:none;}
+  .phone-pill svg{width:16px;height:16px;}
+  .menu-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:10px;width:42px;height:42px;align-items:center;justify-content:center;cursor:pointer;}
+  .menu-toggle svg{width:20px;height:20px;stroke:var(--primary);}
+  .lang-toggle{
+    font-family:inherit;font-weight:700;font-size:.82rem;color:var(--primary);
+    background:var(--surface-alt);border:1.5px solid var(--border);border-radius:999px;
+    padding:.45em 1em;cursor:pointer;line-height:1;white-space:nowrap;
+  }
+  .lang-toggle:hover{background:var(--primary-soft);border-color:var(--primary);}
+
+  @media (max-width:860px){
+    nav.main-nav{
+      position:fixed;inset:64px 0 0 0;background:var(--bg);
+      flex-direction:column;align-items:flex-start;padding:28px 28px;gap:6px;
+      transform:translateX(100%);transition:transform .25s ease;
+      overflow-y:auto;
+    }
+    nav.main-nav.open{transform:translateX(0);}
+    nav.main-nav a{width:100%;padding:12px 0;font-size:1.1rem;border-bottom:1px solid var(--border);}
+    .phone-pill span{display:none;}
+    .menu-toggle{display:flex;}
+  }
+
+  /* hero */
+  .hero{padding:40px 0 40px;overflow:hidden;}
+  .hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:center;position:relative;z-index:1;}
+  .hero h1{font-size:clamp(2rem,2.6vw,2.6rem);line-height:1.08;margin:12px 0 18px;}
+  .hero h1 em{font-style:italic;color:var(--accent-strong);}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+  .license-line{margin-top:26px;font-size:.86rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;}
+  .license-line svg{width:15px;height:15px;fill:var(--accent-strong);}
+  .hero-badge{
+    position:relative;background:var(--surface);border:1px solid var(--border);border-radius:24px;
+    padding:26px;margin-top:24px;box-shadow:0 24px 48px -24px rgba(var(--shadow),.4);
+    display:flex;align-items:center;justify-content:center;box-sizing:border-box;max-width:320px;
+  }
+  .hero-badge img{width:100%;max-width:280px;display:block;}
+  .portfolio-col > h2{margin:10px 0 24px;}
+
+  @media (max-width:860px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-badge{max-width:320px;margin:0 auto;order:-1;}
+  }
+
+  .photo-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  }
+  .photo-grid img{
+    width:100%;aspect-ratio:1;object-fit:cover;border-radius:0;display:block;cursor:zoom-in;
+    box-shadow:0 14px 26px -18px rgba(var(--shadow),.5);
+    transition:transform .2s ease;
+  }
+  .photo-grid img:hover{transform:scale(1.03);}
+  @media (max-width:760px){.photo-grid{grid-template-columns:repeat(2,1fr);}}
+  /* portfolio carousel */
+  .carousel{position:relative;width:88%;margin:0 auto;}
+  .carousel-viewport{overflow:hidden;cursor:pointer;box-shadow:0 26px 54px -26px rgba(var(--shadow),.5);}
+  .carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+  .carousel-slide{flex:0 0 100%;aspect-ratio:16/10;}
+  .carousel-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .carousel-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+    font-size:1.7rem;line-height:1;cursor:pointer;color:var(--primary);
+    box-shadow:0 10px 22px -10px rgba(var(--shadow),.5);
+  }
+  .carousel-prev{left:-24px;}
+  .carousel-next{right:-24px;}
+  .carousel-dots{display:flex;justify-content:center;gap:9px;margin-top:20px;}
+  .carousel-dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:all .2s ease;}
+  .carousel-dot.active{background:var(--primary);width:24px;border-radius:5px;}
+  @media (max-width:900px){
+    .carousel{width:94%;}
+    .carousel-arrow{width:40px;height:40px;font-size:1.3rem;}
+    .carousel-prev{left:-8px;} .carousel-next{right:-8px;}
+  }
+
+  /* client reviews */
+  .reviews{padding:70px 0 90px;}
+  .review-row{
+    display:flex;gap:18px;align-items:flex-start;
+    overflow-x:auto;padding-bottom:8px;
+    scrollbar-width:thin;
+  }
+  .review-row img{
+    height:880px;width:auto;max-width:none;flex:none;cursor:zoom-in;
+    border-radius:14px;object-fit:contain;background:var(--surface);
+    border:1px solid var(--border);box-shadow:0 16px 34px -20px rgba(var(--shadow),.5);
+    transition:transform .2s ease;
+  }
+  .review-row img:hover{transform:scale(1.02);}
+  .review-row img.review-narrow{height:530px;}
+  @media (max-width:760px){
+    .review-row img{height:560px;}
+    .review-row img.review-narrow{height:340px;}
+  }
+
+  /* portfolio paginated gallery */
+  .portfolio-gallery{padding:36px 0;background:var(--surface-alt);}
+  .page-gallery{width:91%;margin:0 auto;}
+  .gallery-page{display:none;}
+  .gallery-page.active{display:block;}
+  .gallery-page img{
+    width:100%;max-height:92vh;aspect-ratio:4/3;object-fit:cover;display:block;cursor:zoom-in;
+    box-shadow:0 24px 48px -24px rgba(var(--shadow),.5);
+  }
+  #pageGrid1 .gallery-page img{aspect-ratio:16/9;object-fit:contain;background:var(--surface);}
+  #pageGrid2 .gallery-page img{aspect-ratio:16/9;object-fit:contain;background:var(--surface);}
+  .page-nav{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:26px;}
+  .page-arrow{
+    width:48px;height:48px;border-radius:50%;background:var(--surface);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:1.6rem;line-height:1;
+    cursor:pointer;color:var(--primary);box-shadow:0 10px 22px -10px rgba(var(--shadow),.5);
+  }
+  .page-counter{font-size:.9rem;color:var(--text-muted);font-variant-numeric:tabular-nums;min-width:64px;text-align:center;}
+  @media (max-width:900px){.page-gallery{width:92%;}}
+
+  /* lightbox */
+  .lightbox{position:fixed;inset:0;background:rgba(8,14,10,.94);z-index:300;display:flex;align-items:center;justify-content:center;padding:60px 24px;}
+  .lightbox[hidden]{display:none;}
+  .lightbox img{max-width:88vw;max-height:82vh;object-fit:contain;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.5);}
+  .lightbox-close,.lightbox-nav{
+    position:absolute;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;
+  }
+  .lightbox-close{top:18px;right:18px;width:44px;height:44px;font-size:1.5rem;}
+  .lightbox-nav{top:50%;transform:translateY(-50%);width:52px;height:52px;font-size:1.7rem;}
+  .lightbox-prev{left:12px;}
+  .lightbox-next{right:12px;}
+  .lightbox-close:hover,.lightbox-nav:hover{background:rgba(255,255,255,.24);}
+  .lightbox-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#fff;font-size:.82rem;background:rgba(255,255,255,.14);padding:6px 16px;border-radius:999px;font-variant-numeric:tabular-nums;}
+  @media (max-width:640px){
+    .lightbox{padding:70px 12px;}
+    .lightbox-nav{width:42px;height:42px;font-size:1.4rem;}
+    .lightbox-prev{left:4px;} .lightbox-next{right:4px;}
+  }
+
+  .section-head{max-width:640px;margin-bottom:22px;}
+  .section-head h2{font-size:clamp(1.7rem,2.8vw,2.3rem);margin-top:8px;}
+
+  /* about */
+  .about{padding:52px 0;}
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start;}
+  .about h2{font-size:clamp(1.8rem,3vw,2.5rem);}
+  .about-copy p{color:var(--text-muted);margin-top:16px;}
+  .about-copy p:first-of-type{margin-top:18px;}
+  .about-byline{font-family:"Fraunces",serif;font-style:italic;font-size:1.05rem;color:var(--accent-strong);margin-top:12px;}
+  .about-quote{border-left:3px solid var(--accent);padding-left:18px;margin:24px 0;font-family:"Fraunces",serif;font-style:italic;font-weight:500;font-size:1.2rem;line-height:1.4;color:var(--primary);}
+  .why-list{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:16px;}
+  .why-list li{display:flex;gap:14px;align-items:flex-start;}
+  .why-list .dot{
+    flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  .why-list .dot svg{width:15px;height:15px;stroke:var(--accent-strong);fill:none;stroke-width:2;}
+  .why-list strong{display:block;font-size:.98rem;}
+  .why-list span{color:var(--text-muted);font-size:.9rem;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+
+  /* portfolio */
+  .portfolio{background:var(--surface-alt);padding:84px 0;}
+  .upload-note{
+    margin-top:40px;background:var(--surface);border:1.5px dashed var(--border);border-radius:18px;
+    padding:24px 26px;display:flex;gap:18px;align-items:flex-start;
+  }
+  .upload-note svg{width:26px;height:26px;stroke:var(--accent-strong);fill:none;stroke-width:1.6;flex:none;margin-top:2px;}
+  .upload-note h4{font-size:1rem;margin-bottom:6px;}
+  .upload-note p{color:var(--text-muted);font-size:.92rem;}
+  @media (max-width:500px){.upload-note{flex-direction:column;}}
+
+  /* survey */
+  .survey{padding:88px 0 100px;}
+  .survey-head{max-width:680px;margin:0 auto 44px;text-align:center;}
+  .survey-head h2{font-size:clamp(1.8rem,3vw,2.5rem);}
+  .survey-card{
+    max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--border);
+    border-radius:26px;padding:40px 44px 36px;box-shadow:0 30px 60px -30px rgba(var(--shadow),.35);
+  }
+  @media (max-width:640px){.survey-card{padding:28px 20px 26px;border-radius:20px;}}
+
+  .stepper{display:flex;justify-content:space-between;margin-bottom:34px;gap:4px;}
+  .step-dot{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;}
+  .step-dot .num{
+    width:28px;height:28px;border-radius:50%;background:var(--surface-alt);border:1.5px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;color:var(--text-muted);
+    transition:all .2s ease;
+  }
+  .step-dot .label{font-size:.62rem;color:var(--text-muted);text-align:center;letter-spacing:.02em;display:none;}
+  .step-dot.active .num{background:var(--primary);border-color:var(--primary);color:var(--surface);}
+  .step-dot.done .num{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong);}
+  .step-dot.done{cursor:pointer;}
+  @media (min-width:640px){.step-dot .label{display:block;}}
+
+  .wizard-step{display:none;}
+  .wizard-step.active{display:block;animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+  .wizard-step h3{font-size:1.4rem;margin-bottom:6px;}
+  .step-hint{color:var(--text-muted);font-size:.92rem;margin-bottom:24px;}
+
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+  .field label{font-size:.82rem;font-weight:600;color:var(--text);}
+  .field input[type="text"],.field input[type="email"],.field input[type="tel"],.field input[type="number"],.field textarea{
+    font-family:inherit;font-size:.96rem;padding:.75em .9em;border-radius:12px;border:1.5px solid var(--border);
+    background:var(--bg);color:var(--text);width:100%;
+  }
+  .field textarea{resize:vertical;min-height:80px;}
+  .field input:focus,.field textarea:focus{border-color:var(--focus);}
+  .num-stepper{display:flex;align-items:center;gap:10px;}
+  .num-stepper button{
+    width:34px;height:34px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface-alt);
+    color:var(--primary);font-size:1.1rem;cursor:pointer;line-height:1;
+  }
+  .num-stepper input{width:52px;text-align:center;border:1.5px solid var(--border);border-radius:10px;padding:.5em 0;background:var(--bg);color:var(--text);font-weight:600;font-variant-numeric:tabular-nums;}
+
+  .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+  .choice-card{position:relative;}
+  .choice-card input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0;}
+  .choice-card .box{
+    border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;font-size:.92rem;font-weight:500;
+    display:flex;align-items:center;gap:10px;transition:all .15s ease;background:var(--bg);
+  }
+  .choice-card .box .tick{
+    width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);flex:none;
+    display:flex;align-items:center;justify-content:center;background:var(--surface);
+  }
+  .choice-card.radio .box .tick{border-radius:50%;}
+  .choice-card .box .tick svg{width:11px;height:11px;stroke:var(--surface);fill:none;stroke-width:3;opacity:0;}
+  .choice-card input:checked + .box{border-color:var(--primary);background:var(--primary-soft);}
+  .choice-card input:checked + .box .tick{background:var(--primary);border-color:var(--primary);}
+  .choice-card input:checked + .box .tick svg{opacity:1;}
+  .choice-card input:focus-visible + .box{outline:2px solid var(--focus);outline-offset:2px;}
+  .choice-card .box .meta{display:flex;flex-direction:column;}
+  .choice-card .box .meta small{color:var(--text-muted);font-weight:400;font-size:.78rem;}
+  @media (max-width:560px){.choice-grid{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;}}
+
+  .style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .style-card .box{flex-direction:column;align-items:flex-start;gap:8px;padding:10px;}
+  .style-card .swatch{width:100%;height:120px;border-radius:9px;background-size:cover;background-position:center;}
+  .style-card .meta{padding:0 4px 4px;}
+  .style-note{font-size:.8rem;color:var(--text-muted);margin-top:14px;}
+  @media (max-width:640px){.style-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:420px){.style-grid{grid-template-columns:1fr;}}
+
+  .budget-list{display:flex;flex-direction:column;gap:10px;}
+  .budget-list .box{justify-content:space-between;}
+
+  .slot-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+  .slot-scroll{overflow-x:auto;margin:0 -4px 8px;padding:0 4px;}
+  .slot-table th{
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);
+    font-weight:600;padding:0 4px 8px;text-align:center;
+  }
+  .slot-table td{padding:4px;text-align:center;}
+  .slot-table th:first-child,.slot-table td:first-child{text-align:left;padding-left:0;}
+  .slot-btn{
+    width:100%;min-width:64px;padding:8px 4px;border-radius:9px;border:1.5px solid var(--border);
+    background:var(--bg);color:var(--text-muted);font-size:.74rem;font-weight:600;cursor:pointer;
+  }
+  .slot-btn.picked{background:var(--primary);border-color:var(--primary);color:var(--surface);}
+  .slot-btn:disabled:not(.picked){opacity:.35;cursor:not-allowed;}
+  .slot-day{font-weight:600;font-size:.84rem;color:var(--text);}
+  .slot-note{font-size:.8rem;color:var(--text-muted);margin:10px 0 26px;}
+
+  .plotmap-box{display:flex;gap:20px;align-items:flex-start;background:var(--surface-alt);border-radius:16px;padding:20px;margin:22px 0 28px;}
+  .plotmap-box svg{flex:none;width:150px;height:auto;border-radius:10px;background:var(--surface);border:1px solid var(--border);}
+  .plotmap-box p{font-size:.88rem;color:var(--text-muted);}
+  .plotmap-box strong{color:var(--text);}
+  @media (max-width:560px){.plotmap-box{flex-direction:column;} .plotmap-box svg{width:100%;max-width:220px;}}
+
+  .checkline{display:flex;align-items:flex-start;gap:10px;margin-top:6px;cursor:pointer;}
+  .checkline input{margin-top:3px;}
+  .checkline span{font-size:.88rem;color:var(--text-muted);}
+
+  .summary-box{background:var(--surface-alt);border-radius:16px;padding:22px 24px;font-size:.88rem;color:var(--text);white-space:pre-wrap;font-family:"Work Sans",sans-serif;max-height:340px;overflow-y:auto;line-height:1.55;}
+  .summary-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .send-note{font-size:.8rem;color:var(--text-muted);margin-top:14px;}
+  .error-msg{color:var(--accent-strong);font-size:.85rem;margin-top:4px;min-height:1.2em;}
+
+  .wizard-nav{display:flex;justify-content:space-between;margin-top:32px;gap:12px;}
+  .wizard-nav .spacer{flex:1;}
+
+  .survey-card h3{margin-top:24px;}
+  .survey-card h3:first-child{margin-top:0;}
+  .survey-card h3 small{display:block;font-family:"Work Sans",sans-serif;font-weight:400;font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:4px;}
+  .survey-card textarea{width:100%;font-family:inherit;font-size:.96rem;padding:.75em .9em;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);resize:vertical;min-height:90px;}
+
+  /* footer */
+  .site-footer{background:var(--primary-strong);color:#EFF4EC;padding:44px 0 24px;position:relative;overflow:hidden;}
+  .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;position:relative;z-index:1;}
+  .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .footer-brand img{width:46px;height:46px;border-radius:50%;}
+  .footer-brand strong{font-family:"Fraunces",serif;font-size:1.15rem;}
+  .site-footer p{color:#C6D6C9;font-size:.9rem;}
+  .site-footer h5{font-family:"Work Sans",sans-serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#9FC0A6;margin-bottom:14px;}
+  .footer-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .footer-list a{color:#EFF4EC;text-decoration:none;font-size:.92rem;display:flex;align-items:center;gap:8px;}
+  .footer-list svg{width:15px;height:15px;stroke:#9FC0A6;fill:none;stroke-width:1.6;flex:none;}
+  .footer-bottom{margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:#9FC0A6;position:relative;z-index:1;}
+  @media (max-width:760px){.footer-grid{grid-template-columns:1fr;}}
+
+  /* falling cherry blossom petals */
+  .petal-field{position:fixed;inset:0;pointer-events:none;z-index:250;overflow:hidden;}
+  .petal{
+    position:absolute;top:-8vh;left:0;
+    will-change:transform;
+    overflow:visible;
+  }
+  @keyframes petal-fall{
+    0%{transform:translate(0,-8vh) rotate(0deg);}
+    20%{transform:translate(18px,18vh) rotate(70deg);}
+    40%{transform:translate(-16px,38vh) rotate(150deg);}
+    60%{transform:translate(20px,58vh) rotate(230deg);}
+    80%{transform:translate(-14px,78vh) rotate(300deg);}
+    100%{transform:translate(0,112vh) rotate(360deg);}
+  }
+</style>
+
+<div class="leaf-field" aria-hidden="true" id="topLeafField" style="height:0;">
+  <svg width="0" height="0" style="position:absolute;">
+    <defs>
+      <path id="monstera" fill-rule="evenodd" d="M100,4 C130,4 150,18 158,40 C168,66 178,86 176,112 C174,140 164,162 148,182 C134,200 118,214 100,236 C82,214 66,200 52,182 C36,162 26,140 24,112 C22,86 32,66 42,40 C50,18 70,4 100,4 Z
+        M70,70 m-10,0 a10,22 0 1,0 20,0 a10,22 0 1,0 -20,0 Z
+        M130,70 m-10,0 a10,22 0 1,0 20,0 a10,22 0 1,0 -20,0 Z
+        M55,140 m-9,0 a9,26 0 1,0 18,0 a9,26 0 1,0 -18,0 Z
+        M145,140 m-9,0 a9,26 0 1,0 18,0 a9,26 0 1,0 -18,0 Z"/>
+      <path id="sakuraPetal" d="M10,10 C6,7 5,3 8,1.3 C9,0.7 10,1.5 10,2.5 C10,1.5 11,0.7 12,1.3 C15,3 14,7 10,10 Z"/>
+      <g id="sakura">
+        <use href="#sakuraPetal"/>
+        <use href="#sakuraPetal" transform="rotate(72 10 10)"/>
+        <use href="#sakuraPetal" transform="rotate(144 10 10)"/>
+        <use href="#sakuraPetal" transform="rotate(216 10 10)"/>
+        <use href="#sakuraPetal" transform="rotate(288 10 10)"/>
+        <circle cx="10" cy="10" r="1.6" fill="#F7C948"/>
+      </g>
+    </defs>
+  </svg>
+</div>
+
+<header class="site-header">
+  <div class="header-row wrap">
+    <a href="#top" class="brand">
+      <img src="mulan-logo.png" alt="Mulan Landscape Inc. logo">
+      <span class="brand-text"><strong>Mulan Landscape</strong><span data-i18n="brand-license">C-27 &middot; License 1120564</span></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#top" data-i18n="nav-home">Home</a>
+      <a href="#portfolio-gallery" data-i18n="nav-portfolio">Portfolio</a>
+      <a href="#about" data-i18n="nav-about">About</a>
+      <a href="#survey" data-i18n="nav-survey">Survey</a>
+      <a href="#contact" data-i18n="nav-contact">Contact</a>
+      <a href="#reviews" data-i18n="nav-reviews">Reviews</a>
+    </nav>
+    <div class="header-actions">
+      <a class="phone-pill" href="tel:+19496629492">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c0-1 1-2 2-2h2l2 5-2 2c1 3 3 5 6 6l2-2 5 2v2c0 1-1 2-2 2C10 20 4 14 4 5Z"/></svg>
+        <span>(949) 662-9492</span>
+      </a>
+      <a class="phone-pill" href="mailto:oneapple396@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        <span>oneapple396@gmail.com</span>
+      </a>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">中文</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div id="top"></div>
+  <!-- PORTFOLIO + HERO -->
+  <section id="portfolio" class="hero">
+    <div class="leaf-field">
+      <svg class="leaf" style="width:260px;top:-60px;left:-70px;transform:rotate(-18deg);" viewBox="0 0 200 240"><use href="#monstera"/></svg>
+      <svg class="leaf" style="width:200px;bottom:-70px;right:-40px;transform:rotate(24deg);opacity:.8;" viewBox="0 0 200 240"><use href="#monstera"/></svg>
+      <svg class="leaf" style="width:120px;top:120px;right:14%;transform:rotate(-8deg);opacity:.55;" viewBox="0 0 200 240"><use href="#monstera"/></svg>
+    </div>
+    <div class="wrap wrap-wide hero-inner">
+      <div class="portfolio-col">
+        <p class="eyebrow" data-i18n="hero-eyebrow1">Our work</p>
+        <h2 data-i18n="hero-h2">100+ projects done in Irvine and Orange County.</h2>
+        <div class="carousel" id="portfolioCarousel">
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carouselTrack">
+              <div class="carousel-slide"><img src="carousel/1.jpg" alt="Backyard patio and outdoor kitchen at golden hour"></div>
+              <div class="carousel-slide"><img src="carousel/2.jpg" alt="Decorative screen panels and stone water feature at night"></div>
+              <div class="carousel-slide"><img src="carousel/3.jpg" alt="Sunken fire pit lounge among cacti at dusk"></div>
+              <div class="carousel-slide"><img src="carousel/4.jpg" alt="Japanese maple, stone lantern, and wood bridge"></div>
+              <div class="carousel-slide"><img src="carousel/5.jpg" alt="Sunken fire pit bench with stepping stones and turf"></div>
+            </div>
+          </div>
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Next photo">&#8250;</button>
+          <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+      </div>
+      <div id="home">
+        <p class="eyebrow" data-i18n="hero-eyebrow2">Irvine &amp; Orange County Top Design-Build</p>
+        <h1 data-i18n-html="hero-h1">Design &amp; build <em>beautiful</em> gardens.</h1>
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-primary" data-i18n="btn-about">About Us</a>
+          <a href="#portfolio-gallery" class="btn btn-ghost" data-i18n="btn-work">See our work</a>
+        </div>
+        <p class="license-line">
+          <svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/></svg>
+          <span data-i18n="license-line">C-27 Landscape Contractor &middot; License No. 1120564</span>
+        </p>
+        <div class="hero-badge">
+          <img src="mulan-logo.png" alt="Mulan Landscape Inc. logo, a woman in profile framed by monstera leaves and a pink blossom">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO GALLERY -->
+  <section id="portfolio-gallery" class="portfolio-gallery">
+    <div class="wrap wrap-wide">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="gallery-eyebrow">More of our work</p>
+        <h2 data-i18n="gallery-h2-big">Big</h2>
+      </div>
+      <div class="page-gallery" id="pageGrid1">
+        <div class="gallery-page active"><img src="gallery2/f1_01.jpg" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide3.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide4.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide5.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide6.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide7.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide8.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide9.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide10.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide11.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide12.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide13.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide14.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide15.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide16.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide17.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide18.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide19.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide20.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide21.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide22.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide23.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide24.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide25.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide26.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide27.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide28.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide29.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide30.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide31.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide32.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide33.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide34.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide35.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide36.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide37.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide38.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide39.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide40.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide41.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide42.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide43.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="bigyard/Slide44.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide26.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide27.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide23.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide24.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide25.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide33.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide34.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide35.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide74.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide75.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide76.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide104.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide105.JPG" alt="Mulan Landscape project photo"></div>
+      </div>
+      <div class="page-nav">
+        <button class="page-arrow" data-prev-for="pageGrid1" type="button" aria-label="Previous page">&#8249;</button>
+        <span class="page-counter" data-counter-for="pageGrid1"></span>
+        <button class="page-arrow" data-next-for="pageGrid1" type="button" aria-label="Next page">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SMALL TO MEDIUM YARD -->
+  <section id="small-medium-yard" class="portfolio-gallery">
+    <div class="wrap wrap-wide">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="gallery-eyebrow">More of our work</p>
+        <h2 data-i18n="gallery-h2-small">Small to Medium</h2>
+      </div>
+      <div class="page-gallery" id="pageGrid2">
+        <div class="gallery-page active"><img src="smallyard/Slide18.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide3.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide4.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide5.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide6.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide7.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide8.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide9.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide10.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide11.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide12.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide13.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide14.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide15.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide16.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide17.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide19.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide20.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide21.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide22.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide31.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide32.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide36.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide37.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide38.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide39.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide40.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide41.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide42.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide43.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide44.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide45.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide46.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide47.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide48.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide49.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide50.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide51.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide52.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide53.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide54.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide55.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide56.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide57.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide58.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide59.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide60.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide61.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide62.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide63.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide64.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide65.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide66.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide67.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide68.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide69.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide70.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide71.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide72.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide73.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide77.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide78.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide79.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide80.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide81.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide82.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide83.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide84.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide85.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide86.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide87.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide88.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide89.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide90.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide91.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide92.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide93.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide94.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide95.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide96.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide97.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide98.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide102.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide103.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide106.JPG" alt="Mulan Landscape project photo"></div>
+        <div class="gallery-page"><img src="smallyard/Slide109.JPG" alt="Mulan Landscape project photo"></div>
+      
+      </div>
+      <div class="page-nav">
+        <button class="page-arrow" data-prev-for="pageGrid2" type="button" aria-label="Previous page">&#8249;</button>
+        <span class="page-counter" data-counter-for="pageGrid2"></span>
+        <button class="page-arrow" data-next-for="pageGrid2" type="button" aria-label="Next page">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow" data-i18n="about-eyebrow">Meet the founder</p>
+        <h2 data-i18n="about-h2">About Mulan Landscape.</h2>
+      </div>
+      <div class="about-copy">
+        <p class="about-byline" data-i18n="about-byline">Shan Wu &mdash; Founder &amp; Principal Designer</p>
+        <p data-i18n="about-p1">Hi, I'm Shan Wu, founder of Mulan Landscape. I am a licensed California landscape contractor (C-27) with a Master's degree in Landscape Architecture from The Ohio State University and more than 18 years of experience in landscape design and construction.</p>
+        <p data-i18n="about-p2">For the past seven years, I have worked extensively throughout Irvine and surrounding Southern California communities, providing landscape design, 3D visualization, HOA plans and submissions, and complete landscape construction. I have designed and built outdoor spaces for more than 100 homes, with extensive experience navigating Irvine's community-specific HOA requirements and design guidelines.</p>
+        <p class="about-quote" data-i18n="about-quote">&ldquo;A well-designed landscape should add value to your home while creating an outdoor space that is uniquely yours.&rdquo;</p>
+        <p data-i18n="about-p3">Every project begins with the homeowner. I create one-of-a-kind designs based on each client's property, lifestyle, aesthetic preferences, and budget &mdash; then carry that vision through construction with careful attention to quality, functionality, and detail.</p>
+        <p data-i18n="about-p4">From the initial concept and 3D design to HOA approval and final construction, my goal is to make the entire process as seamless as possible and create a beautiful, lasting outdoor space where you can fully enjoy the Southern California lifestyle.</p>
+        <ul class="why-list">
+          <li>
+            <span class="dot"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="why1-title">M.L.A., The Ohio State University</strong><span data-i18n="why1-sub">Master's degree in Landscape Architecture.</span></div>
+          </li>
+          <li>
+            <span class="dot"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="why2-title">18+ years, licensed C-27</strong><span data-i18n="why2-sub">Landscape design and construction, License No. 1120564.</span></div>
+          </li>
+          <li>
+            <span class="dot"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="why3-title">100+ homes designed &amp; built</strong><span data-i18n="why3-sub">Seven years focused on Irvine and Southern California.</span></div>
+          </li>
+          <li>
+            <span class="dot"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="why4-title">HOA plans &amp; 3D visualization</strong><span data-i18n="why4-sub">Deep experience with Irvine's community-specific design guidelines.</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURVEY -->
+  <section id="survey" class="survey">
+    <div class="wrap">
+      <div class="survey-head">
+        <p class="eyebrow" data-i18n="survey-eyebrow">Before we meet</p>
+        <h2 data-i18n="survey-h2">Tell us about your project.</h2>
+        <p class="lede" style="margin:10px auto 0;">Fill this out before our first meeting so we can design a space that truly fits your family. 请在初次见面前填写此表，帮助我们为您的家庭量身设计。</p>
+      </div>
+      <div class="survey-card">
+
+        <h3>基本信息 <small>Basic Information</small></h3>
+        <div class="field-row">
+          <div class="field"><label for="sv-name">姓名 (Name)</label><input type="text" id="sv-name"></div>
+          <div class="field"><label for="sv-phone">电话 (Phone)</label><input type="tel" id="sv-phone"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="sv-email">邮箱 (Email)</label><input type="email" id="sv-email"></div>
+          <div class="field"><label for="sv-date">填写日期 (Date)</label><input type="date" id="sv-date"></div>
+        </div>
+        <div class="field"><label for="sv-address">项目地址 (Property Address)</label><input type="text" id="sv-address"></div>
+
+        <h3>家庭情况 <small>Household</small></h3>
+        <div class="field-row">
+          <div class="field"><label for="sv-hh">家庭总人数 (Household size)</label><input type="number" min="1" id="sv-hh"></div>
+          <div class="field"><label for="sv-kids">孩子数量 (Number of children)</label><input type="number" min="0" id="sv-kids"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="sv-ages">孩子年龄 (Children's ages, e.g. 5, 8, 12)</label><input type="text" id="sv-ages"></div>
+          <div class="field"><label for="sv-pets">宠物 (Pets, if any)</label><input type="text" id="sv-pets"></div>
+        </div>
+
+        <h3>预算 <small>Budget</small></h3>
+        <div class="budget-list" id="sv-budget">
+          <label class="choice-card radio"><input type="radio" name="sv-budget" value="$10,000–$25,000"><span class="box">$10,000 – $25,000<span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span></span></label>
+          <label class="choice-card radio"><input type="radio" name="sv-budget" value="$25,000–$50,000"><span class="box">$25,000 – $50,000<span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span></span></label>
+          <label class="choice-card radio"><input type="radio" name="sv-budget" value="$50,000–$100,000"><span class="box">$50,000 – $100,000<span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span></span></label>
+          <label class="choice-card radio"><input type="radio" name="sv-budget" value="$100,000+"><span class="box">$100,000+<span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span></span></label>
+        </div>
+
+        <h3>功能空间需求 <small>Functional Spaces — select all that apply</small></h3>
+        <div class="choice-grid" id="sv-spaces">
+          <label class="choice-card"><input type="checkbox" value="户外座椅区 Outdoor seating area"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">户外座椅区<small>Outdoor seating area</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="户外烤火区 Outdoor fire pit area"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">户外烤火区<small>Outdoor fire pit area</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="户外厨房（电器自购）Outdoor kitchen, appliances self-purchased"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">户外厨房（电器自购）<small>Appliances self-purchased</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="人工草坪 Artificial turf"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">人工草坪<small>Artificial turf</small></span></span></label>
+        </div>
+        <div class="field"><label for="sv-spaces-other">其他 (Other)</label><input type="text" id="sv-spaces-other"></div>
+
+        <h3>材料偏好 <small>Material Preference</small></h3>
+        <div class="choice-grid" id="sv-material">
+          <label class="choice-card radio"><input type="radio" name="sv-material" value="瓷砖 Tile"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>瓷砖 Tile</span></label>
+          <label class="choice-card radio"><input type="radio" name="sv-material" value="透水砖 Permeable pavers"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>透水砖 Permeable pavers</span></label>
+          <label class="choice-card radio" style="grid-column:1 / -1;"><input type="radio" name="sv-material" value="无偏好 No preference"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>无偏好，交由设计师建议 No preference / designer's choice</span></label>
+        </div>
+
+        <h3>植物偏好 <small>Plant Preference — select all that apply</small></h3>
+        <div class="choice-grid" id="sv-plants">
+          <label class="choice-card"><input type="checkbox" value="省水/免打理灌木 Drought-tolerant, low-maintenance shrubs"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">省水/免打理灌木<small>Drought-tolerant, low-maintenance</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="多肉植物 Succulents"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">多肉植物<small>Succulents</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="高灌木隐私遮挡 Tall shrubs for privacy"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">高灌木（隐私遮挡）<small>Tall shrubs for privacy</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="花卉 Flowers"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">花卉<small>Flowering plants</small></span></span></label>
+          <label class="choice-card" style="grid-column:1 / -1;"><input type="checkbox" value="草类/观赏草 Ornamental grasses"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">草类/观赏草<small>Ornamental grasses</small></span></span></label>
+        </div>
+
+        <h3>物业 / HOA 审批 <small>HOA Approval</small></h3>
+        <div class="choice-grid" id="sv-hoa">
+          <label class="choice-card radio"><input type="radio" name="sv-hoa" value="需要 Required"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>需要 Required</span></label>
+          <label class="choice-card radio"><input type="radio" name="sv-hoa" value="不需要 Not required"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>不需要 Not required</span></label>
+          <label class="choice-card radio" style="grid-column:1 / -1;"><input type="radio" name="sv-hoa" value="不确定，需协助确认 Not sure — need help confirming"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>不确定，需协助确认 Not sure — need help confirming</span></label>
+        </div>
+
+        <h3>水电及照明需求 <small>Utilities &amp; Lighting — select all that apply</small></h3>
+        <div class="choice-grid" id="sv-utilities">
+          <label class="choice-card"><input type="checkbox" value="地下煤气管道 Underground gas line"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">地下煤气管道<small>Underground gas line</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="新户外电源插座 New outdoor electrical outlet"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">新户外电源插座<small>New outdoor electrical outlet</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="新户外水管 New outdoor water line"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">新户外水管<small>New outdoor water line</small></span></span></label>
+          <label class="choice-card"><input type="checkbox" value="景观灯 Landscape lighting"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta">景观灯<small>Landscape lighting</small></span></span></label>
+        </div>
+
+        <h3>其他备注 <small>Additional Notes</small></h3>
+        <div class="field"><textarea id="sv-notes" placeholder="任何其他想法或需求... Anything else you'd like us to know..."></textarea></div>
+
+        <div class="summary-actions">
+          <button class="btn btn-primary" id="svCopyBtn" type="button" data-i18n="survey-copy-btn">Copy summary to clipboard</button>
+          <span class="send-note" id="svToast" style="opacity:0;transition:opacity .2s ease;color:var(--primary);font-weight:600;" data-i18n="survey-toast">Copied ✓</span>
+        </div>
+        <p class="send-note" data-i18n-html="survey-note">Copy your answers and paste them into an email to <strong>oneapple396@gmail.com</strong>, or fill this out together with us at our first meeting.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT REVIEWS -->
+  <section id="reviews" class="reviews">
+    <div class="wrap wrap-wide">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="reviews-eyebrow">What clients say</p>
+        <h2 data-i18n="reviews-h2">Client Reviews.</h2>
+      </div>
+      <div class="review-row">
+        <img class="review-narrow" src="reviews/review1.jpg" alt="Facebook comments recommending Shan Wu for landscape and HOA help">
+        <img src="reviews/review2.jpg" alt="Text message thread thanking Shan for a garden that exceeded expectations">
+        <img src="reviews/review3.jpg" alt="iMessage thread with backyard patio photos and a client thank-you message">
+        <img src="reviews/review4.jpg" alt="iMessage thread about a paving project with a thank-you message">
+      </div>
+    </div>
+  </section>
+  </main>
+
+<footer id="contact" class="site-footer">
+  <div class="leaf-field">
+    <svg class="leaf" style="width:220px;bottom:-60px;left:-50px;transform:rotate(12deg);opacity:.14;fill:#EFF4EC;" viewBox="0 0 200 240"><use href="#monstera"/></svg>
+  </div>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="mulan-logo.png" alt="Mulan Landscape Inc. logo">
+        <strong>Mulan Landscape Inc.</strong>
+      </div>
+      <p data-i18n="footer-desc">Design and build beautiful gardens. Licensed C-27 landscape contractor, No. 1120564, serving Irvine and Orange County.</p>
+    </div>
+    <div>
+      <h5 data-i18n="footer-touch">Get in touch</h5>
+      <ul class="footer-list">
+        <li><a href="tel:+19496629492"><svg viewBox="0 0 24 24"><path d="M4 5c0-1 1-2 2-2h2l2 5-2 2c1 3 3 5 6 6l2-2 5 2v2c0 1-1 2-2 2C10 20 4 14 4 5Z"/></svg>(949) 662-9492</a></li>
+        <li><a href="mailto:oneapple396@gmail.com"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>oneapple396@gmail.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5 data-i18n="footer-area">Service area</h5>
+      <ul class="footer-list">
+        <li><span style="display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/></svg><span data-i18n="footer-area-text">Irvine, Great Park &amp; Orange County</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>&copy; <span id="year"></span> Mulan Landscape Inc.</span>
+    <span data-i18n="footer-license">C-27 Landscape License No. 1120564</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+  <span class="lightbox-counter" id="lightboxCounter"></span>
+</div>
+
+<script>
+(function(){
+  var track = document.getElementById('carouselTrack');
+  var dotsWrap = document.getElementById('carouselDots');
+  var slides = track.querySelectorAll('.carousel-slide');
+  var idx = 0;
+
+  slides.forEach(function(_, i){
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+    dot.addEventListener('click', function(e){ e.stopPropagation(); go(i); startAutoplay(); });
+    dotsWrap.appendChild(dot);
+  });
+
+  function go(next){
+    idx = (next + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(function(d, di){
+      d.classList.toggle('active', di === idx);
+    });
+  }
+
+  var AUTOPLAY_MS = 2000;
+  var timer = null;
+  function startAutoplay(){
+    stopAutoplay();
+    timer = setInterval(function(){ go(idx + 1); }, AUTOPLAY_MS);
+  }
+  function stopAutoplay(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
+
+  document.querySelector('.carousel-viewport').addEventListener('click', function(){ go(idx + 1); startAutoplay(); });
+  document.querySelector('.carousel-next').addEventListener('click', function(){ go(idx + 1); startAutoplay(); });
+  document.querySelector('.carousel-prev').addEventListener('click', function(){ go(idx - 1); startAutoplay(); });
+
+  var carouselEl = document.getElementById('portfolioCarousel');
+  carouselEl.addEventListener('mouseenter', stopAutoplay);
+  carouselEl.addEventListener('mouseleave', startAutoplay);
+  startAutoplay();
+
+  // paginated portfolio galleries (supports multiple independent instances)
+  document.querySelectorAll('.page-gallery').forEach(function(grid){
+    var id = grid.id;
+    var pages = grid.querySelectorAll('.gallery-page');
+    var counter = document.querySelector('[data-counter-for="' + id + '"]');
+    var prevBtn = document.querySelector('[data-prev-for="' + id + '"]');
+    var nextBtn = document.querySelector('[data-next-for="' + id + '"]');
+    var pageIdx = 0;
+    function goPage(next){
+      pageIdx = (next + pages.length) % pages.length;
+      pages.forEach(function(p, i){ p.classList.toggle('active', i === pageIdx); });
+      counter.textContent = (pageIdx + 1) + ' / ' + pages.length;
+    }
+    nextBtn.addEventListener('click', function(){ goPage(pageIdx + 1); });
+    prevBtn.addEventListener('click', function(){ goPage(pageIdx - 1); });
+    goPage(0);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // force true top-of-page scroll for Home / logo links (avoids sticky-header anchor quirks)
+  document.querySelectorAll('a[href="#top"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+      history.replaceState(null, '', ' ');
+    });
+  });
+
+  // mobile nav
+  var nav = document.getElementById('mainNav');
+  var toggle = document.getElementById('menuToggle');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ nav.classList.remove('open'); });
+  });
+})();
+
+(function(){
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  var lbCounter = document.getElementById('lightboxCounter');
+  var currentImgs = [];
+  var currentIdx = 0;
+
+  function render(){
+    var img = currentImgs[currentIdx];
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCounter.textContent = (currentIdx + 1) + ' / ' + currentImgs.length;
+  }
+  function openAt(imgs, idx){
+    currentImgs = imgs;
+    currentIdx = idx;
+    render();
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.hidden = true;
+    document.body.style.overflow = '';
+  }
+  function next(){ currentIdx = (currentIdx + 1) % currentImgs.length; render(); }
+  function prev(){ currentIdx = (currentIdx - 1 + currentImgs.length) % currentImgs.length; render(); }
+
+  document.querySelectorAll('.photo-grid, .page-gallery, .review-row').forEach(function(gallery){
+    var imgs = Array.prototype.slice.call(gallery.querySelectorAll('img'));
+    imgs.forEach(function(img, idx){
+      img.addEventListener('click', function(){ openAt(imgs, idx); });
+    });
+  });
+
+  document.getElementById('lightboxClose').addEventListener('click', close);
+  document.getElementById('lightboxNext').addEventListener('click', next);
+  document.getElementById('lightboxPrev').addEventListener('click', prev);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(lb.hidden) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowRight') next();
+    if(e.key === 'ArrowLeft') prev();
+  });
+})();
+
+(function(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var field = document.createElement('div');
+  field.className = 'petal-field';
+  field.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(field);
+  var colors = ['#EFAFC4', '#DD82A3', '#F6D6E1', '#C4638A'];
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var count = window.innerWidth < 700 ? 12 : 22;
+  for (var i = 0; i < count; i++){
+    var size = 14 + Math.random() * 12;
+    var duration = 27 + Math.random() * 24;
+    var delay = -Math.random() * duration;
+    var p = document.createElementNS(svgNS, 'svg');
+    p.setAttribute('class', 'petal');
+    p.setAttribute('viewBox', '0 0 20 20');
+    p.setAttribute('width', size);
+    p.setAttribute('height', size);
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.opacity = (0.6 + Math.random() * 0.35).toFixed(2);
+    p.style.animation = 'petal-fall ' + duration + 's linear infinite';
+    p.style.animationDelay = delay + 's';
+    var use = document.createElementNS(svgNS, 'use');
+    use.setAttribute('href', '#sakura');
+    use.setAttribute('fill', colors[i % colors.length]);
+    p.appendChild(use);
+    field.appendChild(p);
+  }
+})();
+
+(function(){
+  var btn = document.getElementById('svCopyBtn');
+  if(!btn) return;
+
+  function checkedValues(sel){
+    return Array.prototype.slice.call(document.querySelectorAll(sel + ':checked')).map(function(i){ return i.value; });
+  }
+  function radioValue(name){
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '—';
+  }
+  function val(id){
+    var el = document.getElementById(id);
+    return (el && el.value.trim()) ? el.value.trim() : '—';
+  }
+
+  btn.addEventListener('click', function(){
+    var spaces = checkedValues('#sv-spaces input[type=checkbox]');
+    var spacesOther = val('sv-spaces-other');
+    if(spacesOther !== '—') spaces.push('Other: ' + spacesOther);
+    var plants = checkedValues('#sv-plants input[type=checkbox]');
+    var utilities = checkedValues('#sv-utilities input[type=checkbox]');
+
+    var lines = [
+      'MULAN LANDSCAPE — CLIENT NEEDS SURVEY',
+      '',
+      'Name: ' + val('sv-name'),
+      'Phone: ' + val('sv-phone'),
+      'Email: ' + val('sv-email'),
+      'Date: ' + val('sv-date'),
+      'Property address: ' + val('sv-address'),
+      '',
+      'Household size: ' + val('sv-hh'),
+      'Number of children: ' + val('sv-kids'),
+      "Children's ages: " + val('sv-ages'),
+      'Pets: ' + val('sv-pets'),
+      '',
+      'Budget: ' + radioValue('sv-budget'),
+      '',
+      'Functional spaces: ' + (spaces.length ? spaces.join('; ') : '—'),
+      '',
+      'Material preference: ' + radioValue('sv-material'),
+      '',
+      'Plant preference: ' + (plants.length ? plants.join('; ') : '—'),
+      '',
+      'HOA approval: ' + radioValue('sv-hoa'),
+      '',
+      'Utilities & lighting: ' + (utilities.length ? utilities.join('; ') : '—'),
+      '',
+      'Notes: ' + val('sv-notes'),
+    ].join('\n');
+
+    function showToast(){
+      var t = document.getElementById('svToast');
+      t.style.opacity = '1';
+      setTimeout(function(){ t.style.opacity = '0'; }, 2200);
+    }
+    function fallbackCopy(text, cb){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      cb();
+    }
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(lines).then(showToast).catch(function(){ fallbackCopy(lines, showToast); });
+    } else {
+      fallbackCopy(lines, showToast);
+    }
+  });
+})();
+
+(function(){
+  var TEXT = {
+    'nav-home': { en: 'Home', zh: '首页' },
+    'nav-portfolio': { en: 'Portfolio', zh: '作品' },
+    'nav-about': { en: 'About', zh: '关于木兰' },
+    'nav-survey': { en: 'Survey', zh: '需求调查' },
+    'nav-contact': { en: 'Contact', zh: '联系我们' },
+    'nav-reviews': { en: 'Reviews', zh: '客户评价' },
+    'brand-license': { en: 'C-27 · License 1120564', zh: 'C-27 · 执照 1120564' },
+    'hero-eyebrow1': { en: 'Our work', zh: '木兰景观作品' },
+    'hero-h2': { en: '100+ projects done in Irvine and Orange County.', zh: '已在尔湾和橙县完成100多个景观项目。' },
+    'hero-eyebrow2': { en: 'Irvine & Orange County Top Design-Build', zh: '尔湾及橙县顶级设计建造' },
+    'btn-about': { en: 'About Us', zh: '关于木兰' },
+    'btn-work': { en: 'See our work', zh: '查看作品' },
+    'license-line': { en: 'C-27 Landscape Contractor · License No. 1120564', zh: 'C-27景观承包商执照 · 执照编号 1120564' },
+    'gallery-eyebrow': { en: 'More of our work', zh: '更多作品' },
+    'gallery-h2-big': { en: 'Big', zh: '大型庭院' },
+    'gallery-h2-small': { en: 'Small to Medium', zh: '中小型庭院' },
+    'about-eyebrow': { en: 'Meet the founder', zh: '认识创始人' },
+    'about-h2': { en: 'About Mulan Landscape.', zh: '关于木兰景观' },
+    'about-byline': { en: 'Shan Wu — Founder & Principal Designer', zh: '吴姗 Shan Wu — 创始人兼首席设计师' },
+    'about-p1': { en: "Hi, I'm Shan Wu, founder of Mulan Landscape. I am a licensed California landscape contractor (C-27) with a Master's degree in Landscape Architecture from The Ohio State University and more than 18 years of experience in landscape design and construction.",
+      zh: '您好，我是吴姗（Shan Wu），木兰景观（Mulan Landscape）的创始人。我持有加州C-27景观承包商执照，毕业于俄亥俄州立大学景观建筑学硕士，拥有18年以上的景观设计与施工经验。' },
+    'about-p2': { en: "For the past seven years, I have worked extensively throughout Irvine and surrounding Southern California communities, providing landscape design, 3D visualization, HOA plans and submissions, and complete landscape construction. I have designed and built outdoor spaces for more than 100 homes, with extensive experience navigating Irvine's community-specific HOA requirements and design guidelines.",
+      zh: '过去七年间，我在尔湾及南加州周边社区提供景观设计、3D效果图、物业（HOA）方案申报以及全套景观施工服务，已为100多个家庭设计并建造户外空间，对尔湾各社区的HOA要求和设计规范有丰富的申报经验。' },
+    'about-quote': { en: '“A well-designed landscape should add value to your home while creating an outdoor space that is uniquely yours.”',
+      zh: '“好的景观设计，既能为您的房屋增值，也能打造一个真正属于您自己的户外空间。”' },
+    'about-p3': { en: "Every project begins with the homeowner. I create one-of-a-kind designs based on each client's property, lifestyle, aesthetic preferences, and budget — then carry that vision through construction with careful attention to quality, functionality, and detail.",
+      zh: '每一个项目都从业主本身出发。我会根据每位客户的房屋条件、生活方式、审美偏好和预算，量身打造独一无二的设计方案，并在施工过程中悉心把控品质、功能与细节。' },
+    'about-p4': { en: 'From the initial concept and 3D design to HOA approval and final construction, my goal is to make the entire process as seamless as possible and create a beautiful, lasting outdoor space where you can fully enjoy the Southern California lifestyle.',
+      zh: '从最初的概念构思、3D设计，到HOA审批，再到最终施工完成，我的目标是让整个流程尽可能顺畅，为您打造一个美丽持久的户外空间，尽情享受南加州的生活方式。' },
+    'why1-title': { en: 'M.L.A., The Ohio State University', zh: '俄亥俄州立大学景观建筑学硕士' },
+    'why1-sub': { en: "Master's degree in Landscape Architecture.", zh: '景观建筑学硕士学位。' },
+    'why2-title': { en: '18+ years, licensed C-27', zh: '18年以上经验，持有C-27执照' },
+    'why2-sub': { en: 'Landscape design and construction, License No. 1120564.', zh: '景观设计与施工，执照编号 1120564。' },
+    'why3-title': { en: '100+ homes designed & built', zh: '已设计建造100多个家庭项目' },
+    'why3-sub': { en: 'Seven years focused on Irvine and Southern California.', zh: '七年深耕尔湾及南加州地区。' },
+    'why4-title': { en: 'HOA plans & 3D visualization', zh: 'HOA方案与3D效果图' },
+    'why4-sub': { en: "Deep experience with Irvine's community-specific design guidelines.", zh: '深谙尔湾各社区的设计规范与申报流程。' },
+    'survey-eyebrow': { en: 'Before we meet', zh: '见面前请填写' },
+    'survey-h2': { en: 'Tell us about your project.', zh: '告诉我们您的项目需求' },
+    'survey-copy-btn': { en: 'Copy summary to clipboard', zh: '复制内容到剪贴板' },
+    'survey-toast': { en: 'Copied ✓', zh: '已复制 ✓' },
+    'reviews-eyebrow': { en: 'What clients say', zh: '客户怎么说' },
+    'reviews-h2': { en: 'Client Reviews.', zh: '客户评价' },
+    'footer-desc': { en: 'Design and build beautiful gardens. Licensed C-27 landscape contractor, No. 1120564, serving Irvine and Orange County.',
+      zh: '设计并打造美丽的花园。持有C-27景观承包商执照（编号1120564），服务尔湾及橙县地区。' },
+    'footer-touch': { en: 'Get in touch', zh: '联系方式' },
+    'footer-area': { en: 'Service area', zh: '服务区域' },
+    'footer-area-text': { en: 'Irvine, Great Park & Orange County', zh: '尔湾、大公园及橙县地区' },
+    'footer-license': { en: 'C-27 Landscape License No. 1120564', zh: 'C-27景观承包商执照编号 1120564' },
+  };
+  var HTML = {
+    'hero-h1': { en: 'Design &amp; build <em>beautiful</em> gardens.', zh: '设计并打造<em>美丽</em>的花园。' },
+    'survey-note': {
+      en: 'Copy your answers and paste them into an email to <strong>oneapple396@gmail.com</strong>, or fill this out together with us at our first meeting.',
+      zh: '复制您的填写内容，粘贴到邮件发送给 <strong>oneapple396@gmail.com</strong>，或在初次见面时与我们一起填写。'
+    },
+  };
+
+  var toggle = document.getElementById('langToggle');
+  if(!toggle) return;
+
+  function getSaved(){
+    try { return localStorage.getItem('mulan-lang'); } catch(e){ return null; }
+  }
+  function save(lang){
+    try { localStorage.setItem('mulan-lang', lang); } catch(e){}
+  }
+
+  function applyLang(lang){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(TEXT[key]) el.textContent = TEXT[key][lang];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-html');
+      if(HTML[key]) el.innerHTML = HTML[key][lang];
+    });
+    document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+    toggle.textContent = lang === 'zh' ? 'EN' : '中文';
+    save(lang);
+  }
+
+  toggle.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('lang') === 'zh-CN' ? 'zh' : 'en';
+    applyLang(current === 'zh' ? 'en' : 'zh');
+  });
+
+  var initial = getSaved() || 'en';
+  applyLang(initial);
+})();
+</script>
+
+</body></html>
