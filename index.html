@@ -429,6 +429,12 @@
   .survey-card h3:first-child{margin-top:0;}
   .survey-card h3 small{display:block;font-family:"Work Sans",sans-serif;font-weight:400;font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:4px;}
   .survey-card textarea{width:100%;font-family:inherit;font-size:.96rem;padding:.75em .9em;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);resize:vertical;min-height:90px;}
+  .survey-card input[type=file]{
+    font-family:inherit;font-size:.88rem;padding:.9em;border-radius:12px;border:1.5px dashed var(--border);
+    background:var(--bg);color:var(--text-muted);width:100%;cursor:pointer;
+  }
+  .survey-card input[type=file]:hover{border-color:var(--primary);}
+  #svSubmitBtn:disabled{opacity:.6;cursor:not-allowed;}
 
   /* footer */
   .site-footer{background:var(--primary-strong);color:#EFF4EC;padding:44px 0 24px;position:relative;overflow:hidden;}
@@ -792,7 +798,7 @@
         </div>
         <div class="field-row">
           <div class="field"><label for="sv-email" data-i18n="sv-label-email">Email</label><input type="email" id="sv-email"></div>
-          <div class="field"><label for="sv-date" data-i18n="sv-label-date">Date</label><input type="date" id="sv-date"></div>
+          <div class="field"><label for="sv-date" data-i18n="sv-label-date">Desired Project Start Date</label><input type="date" id="sv-date"></div>
         </div>
         <div class="field"><label for="sv-address" data-i18n="sv-label-address">Property Address</label><input type="text" id="sv-address"></div>
 
@@ -854,14 +860,22 @@
           <label class="choice-card"><input type="checkbox" value="景观灯 Landscape lighting"><span class="box"><span class="tick"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="meta" data-i18n="sv-utility-lighting">Landscape lighting</span></span></label>
         </div>
 
+        <h3 data-i18n="sv-h3-inspiration">Inspiration Photos</h3>
+        <p class="step-hint" data-i18n="sv-inspiration-hint">Upload any photos of styles, gardens, or features you love (optional, you can select multiple).</p>
+        <div class="field"><input type="file" id="sv-inspiration" accept="image/*" multiple></div>
+
+        <h3 data-i18n="sv-h3-plotmap">Plot / Parcel Map</h3>
+        <p class="step-hint" data-i18n="sv-plotmap-hint">If your builder or HOA provided a plot map or parcel map, upload it here (optional).</p>
+        <div class="field"><input type="file" id="sv-plotmap" accept="image/*,.pdf"></div>
+
         <h3 data-i18n="sv-h3-notes">Additional Notes</h3>
         <div class="field"><textarea id="sv-notes" data-i18n-placeholder="sv-notes-placeholder" placeholder="Anything else you'd like us to know..."></textarea></div>
 
         <div class="summary-actions">
-          <button class="btn btn-primary" id="svCopyBtn" type="button" data-i18n="survey-copy-btn">Copy summary to clipboard</button>
-          <span class="send-note" id="svToast" style="opacity:0;transition:opacity .2s ease;color:var(--primary);font-weight:600;" data-i18n="survey-toast">Copied ✓</span>
+          <button class="btn btn-primary" id="svSubmitBtn" type="button" data-i18n="survey-submit-btn">Submit</button>
+          <span class="send-note" id="svToast" style="transition:opacity .2s ease;font-weight:600;"></span>
         </div>
-        <p class="send-note" data-i18n-html="survey-note">Copy your answers and paste them into an email to <strong>oneapple396@gmail.com</strong>, or fill this out together with us at our first meeting.</p>
+        <p class="send-note" data-i18n-html="survey-note">Your answers go directly and privately to Mulan Landscape — no email needed.</p>
 
       </div>
     </div>
@@ -924,6 +938,7 @@
   <span class="lightbox-counter" id="lightboxCounter"></span>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
   var track = document.getElementById('carouselTrack');
@@ -1085,79 +1100,107 @@
 })();
 
 (function(){
-  var btn = document.getElementById('svCopyBtn');
+  var btn = document.getElementById('svSubmitBtn');
   if(!btn) return;
+
+  var SUPABASE_URL = 'YOUR_SUPABASE_URL';
+  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  var sb = (window.supabase && SUPABASE_URL.indexOf('YOUR_') !== 0)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
 
   function checkedValues(sel){
     return Array.prototype.slice.call(document.querySelectorAll(sel + ':checked')).map(function(i){ return i.value; });
   }
   function radioValue(name){
     var el = document.querySelector('input[name="' + name + '"]:checked');
-    return el ? el.value : '—';
+    return el ? el.value : null;
   }
   function val(id){
     var el = document.getElementById(id);
-    return (el && el.value.trim()) ? el.value.trim() : '—';
+    return (el && el.value.trim()) ? el.value.trim() : null;
+  }
+  function intVal(id){
+    var v = val(id);
+    return v ? parseInt(v, 10) : null;
+  }
+  function currentLang(){
+    return document.documentElement.getAttribute('lang') === 'zh-CN' ? 'zh' : 'en';
+  }
+  var STATUS_TEXT = {
+    submitting: { en: 'Submitting…', zh: '正在提交…' },
+    submitted: { en: 'Thank you! We’ve received your information. ✓', zh: '感谢您的提交，我们已收到您的信息 ✓' },
+    error: { en: 'Something went wrong. Please try again or call us directly.', zh: '提交失败，请重试或直接致电我们。' }
+  };
+  function setStatus(key, color){
+    var t = document.getElementById('svToast');
+    t.textContent = STATUS_TEXT[key][currentLang()];
+    t.style.color = color || 'var(--primary)';
   }
 
-  btn.addEventListener('click', function(){
-    var spaces = checkedValues('#sv-spaces input[type=checkbox]');
-    var spacesOther = val('sv-spaces-other');
-    if(spacesOther !== '—') spaces.push('Other: ' + spacesOther);
-    var plants = checkedValues('#sv-plants input[type=checkbox]');
-    var utilities = checkedValues('#sv-utilities input[type=checkbox]');
+  async function uploadFile(bucket, file){
+    var path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    var res = await sb.storage.from(bucket).upload(path, file);
+    if(res.error) throw res.error;
+    var pub = sb.storage.from(bucket).getPublicUrl(path);
+    return pub.data.publicUrl;
+  }
 
-    var lines = [
-      'MULAN LANDSCAPE — CLIENT NEEDS SURVEY',
-      '',
-      'Name: ' + val('sv-name'),
-      'Phone: ' + val('sv-phone'),
-      'Email: ' + val('sv-email'),
-      'Date: ' + val('sv-date'),
-      'Property address: ' + val('sv-address'),
-      '',
-      'Household size: ' + val('sv-hh'),
-      'Number of children: ' + val('sv-kids'),
-      "Children's ages: " + val('sv-ages'),
-      'Pets: ' + val('sv-pets'),
-      '',
-      'Budget: ' + radioValue('sv-budget'),
-      '',
-      'Functional spaces: ' + (spaces.length ? spaces.join('; ') : '—'),
-      '',
-      'Material preference: ' + radioValue('sv-material'),
-      '',
-      'Plant preference: ' + (plants.length ? plants.join('; ') : '—'),
-      '',
-      'HOA approval: ' + radioValue('sv-hoa'),
-      '',
-      'Utilities & lighting: ' + (utilities.length ? utilities.join('; ') : '—'),
-      '',
-      'Notes: ' + val('sv-notes'),
-    ].join('\n');
-
-    function showToast(){
-      var t = document.getElementById('svToast');
-      t.style.opacity = '1';
-      setTimeout(function(){ t.style.opacity = '0'; }, 2200);
+  btn.addEventListener('click', async function(){
+    if(!sb){
+      setStatus('error', 'var(--accent-strong)');
+      return;
     }
-    function fallbackCopy(text, cb){
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(ta);
-      cb();
-    }
+    btn.disabled = true;
+    setStatus('submitting');
 
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(lines).then(showToast).catch(function(){ fallbackCopy(lines, showToast); });
-    } else {
-      fallbackCopy(lines, showToast);
+    try {
+      var spaces = checkedValues('#sv-spaces input[type=checkbox]');
+      var plants = checkedValues('#sv-plants input[type=checkbox]');
+      var utilities = checkedValues('#sv-utilities input[type=checkbox]');
+
+      var inspirationFiles = document.getElementById('sv-inspiration').files;
+      var plotMapFiles = document.getElementById('sv-plotmap').files;
+
+      var inspirationUrls = [];
+      for(var i = 0; i < inspirationFiles.length; i++){
+        inspirationUrls.push(await uploadFile('inspiration-images', inspirationFiles[i]));
+      }
+      var plotMapUrl = plotMapFiles.length ? await uploadFile('plot-maps', plotMapFiles[0]) : null;
+
+      var row = {
+        name: val('sv-name'),
+        phone: val('sv-phone'),
+        email: val('sv-email'),
+        project_start_date: val('sv-date'),
+        address: val('sv-address'),
+        household_size: intVal('sv-hh'),
+        num_children: intVal('sv-kids'),
+        children_ages: val('sv-ages'),
+        pets: val('sv-pets'),
+        budget: radioValue('sv-budget'),
+        spaces: spaces,
+        spaces_other: val('sv-spaces-other'),
+        material: radioValue('sv-material'),
+        plants: plants,
+        hoa: radioValue('sv-hoa'),
+        utilities: utilities,
+        notes: val('sv-notes'),
+        inspiration_image_urls: inspirationUrls,
+        plot_map_url: plotMapUrl
+      };
+
+      var insertRes = await sb.from('survey_submissions').insert(row);
+      if(insertRes.error) throw insertRes.error;
+
+      setStatus('submitted');
+      document.querySelectorAll('.survey-card input[type=text], .survey-card input[type=tel], .survey-card input[type=email], .survey-card input[type=date], .survey-card input[type=number], .survey-card textarea').forEach(function(el){ el.value = ''; });
+      document.querySelectorAll('.survey-card input[type=checkbox], .survey-card input[type=radio]').forEach(function(el){ el.checked = false; });
+      document.querySelectorAll('.survey-card input[type=file]').forEach(function(el){ el.value = ''; });
+      btn.disabled = false;
+    } catch(err) {
+      setStatus('error', 'var(--accent-strong)');
+      btn.disabled = false;
     }
   });
 })();
@@ -1203,8 +1246,10 @@
     'why4-sub': { en: "Deep experience with Irvine's community-specific design guidelines.", zh: '深谙尔湾各社区的设计规范与申报流程。' },
     'survey-eyebrow': { en: 'Before we meet', zh: '见面前请填写' },
     'survey-h2': { en: 'Tell us about your project.', zh: '告诉我们您的项目需求' },
-    'survey-copy-btn': { en: 'Copy summary to clipboard', zh: '复制内容到剪贴板' },
-    'survey-toast': { en: 'Copied ✓', zh: '已复制 ✓' },
+    'survey-submit-btn': { en: 'Submit', zh: '提交' },
+    'survey-submitting': { en: 'Submitting…', zh: '正在提交…' },
+    'survey-submitted': { en: 'Thank you! We’ve received your information. ✓', zh: '感谢您的提交，我们已收到您的信息 ✓' },
+    'survey-error': { en: 'Something went wrong. Please try again or call us directly.', zh: '提交失败，请重试或直接致电我们。' },
     'reviews-eyebrow': { en: 'What clients say', zh: '客户怎么说' },
     'reviews-h2': { en: 'Client Reviews.', zh: '客户评价' },
     'footer-desc': { en: 'Design and build beautiful gardens. Licensed C-27 landscape contractor, No. 1120564, serving Irvine and Orange County.',
@@ -1218,7 +1263,7 @@
     'sv-label-name': { en: 'Name', zh: '姓名' },
     'sv-label-phone': { en: 'Phone', zh: '电话' },
     'sv-label-email': { en: 'Email', zh: '邮箱' },
-    'sv-label-date': { en: 'Date', zh: '填写日期' },
+    'sv-label-date': { en: 'Desired Project Start Date', zh: '项目开始日期' },
     'sv-label-address': { en: 'Property Address', zh: '项目地址' },
     'sv-h3-household': { en: 'Household', zh: '家庭情况' },
     'sv-label-hh': { en: 'Household size', zh: '家庭总人数' },
@@ -1251,14 +1296,18 @@
     'sv-utility-outlet': { en: 'New outdoor electrical outlet', zh: '新户外电源插座' },
     'sv-utility-water': { en: 'New outdoor water line', zh: '新户外水管' },
     'sv-utility-lighting': { en: 'Landscape lighting', zh: '景观灯' },
+    'sv-h3-inspiration': { en: 'Inspiration Photos', zh: '业主意向图片' },
+    'sv-inspiration-hint': { en: 'Upload any photos of styles, gardens, or features you love (optional, you can select multiple).', zh: '上传您喜欢的风格、花园或元素图片（可选，可多选）。' },
+    'sv-h3-plotmap': { en: 'Plot / Parcel Map', zh: '地块图 / Plot Map' },
+    'sv-plotmap-hint': { en: 'If your builder or HOA provided a plot map or parcel map, upload it here (optional).', zh: '如果建商或HOA提供了地块图（plot map / parcel map），请在此上传（可选）。' },
     'sv-h3-notes': { en: 'Additional Notes', zh: '其他备注' },
     'sv-notes-placeholder': { en: "Anything else you'd like us to know...", zh: '任何其他想法或需求...' },
   };
   var HTML = {
     'hero-h1': { en: 'Design &amp; build <em>beautiful</em> gardens.', zh: '设计并打造<em>美丽</em>的花园。' },
     'survey-note': {
-      en: 'Copy your answers and paste them into an email to <strong>oneapple396@gmail.com</strong>, or fill this out together with us at our first meeting.',
-      zh: '复制您的填写内容，粘贴到邮件发送给 <strong>oneapple396@gmail.com</strong>，或在初次见面时与我们一起填写。'
+      en: 'Your answers go directly and privately to Mulan Landscape — no email needed.',
+      zh: '您的填写内容会直接私密发送给木兰景观，无需另外发邮件。'
     },
   };
 
