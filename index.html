@@ -137,12 +137,18 @@
   .phone-pill svg{width:16px;height:16px;}
   .menu-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:10px;width:42px;height:42px;align-items:center;justify-content:center;cursor:pointer;}
   .menu-toggle svg{width:20px;height:20px;stroke:var(--primary);}
-  .lang-toggle{
-    font-family:inherit;font-weight:700;font-size:.82rem;color:var(--primary);
-    background:var(--surface-alt);border:1.5px solid var(--border);border-radius:999px;
-    padding:.45em 1em;cursor:pointer;line-height:1;white-space:nowrap;
+  .lang-switch{
+    display:flex;align-items:center;background:var(--surface-alt);
+    border:1.5px solid var(--border);border-radius:999px;padding:3px;gap:2px;
   }
-  .lang-toggle:hover{background:var(--primary-soft);border-color:var(--primary);}
+  .lang-switch button{
+    font-family:inherit;font-weight:700;font-size:.8rem;color:var(--text-muted);
+    background:transparent;border:none;border-radius:999px;
+    padding:.5em .9em;cursor:pointer;line-height:1;white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
+  }
+  .lang-switch button.active{background:var(--primary);color:var(--surface);}
+  .lang-switch button:not(.active):hover{color:var(--primary);}
 
   @media (max-width:860px){
     nav.main-nav{
@@ -155,7 +161,7 @@
     nav.main-nav a{width:100%;padding:12px 0;font-size:1.1rem;border-bottom:1px solid var(--border);}
     .phone-pill span{display:none;}
     .phone-pill{padding:14px;margin:-14px;}
-    .lang-toggle{padding:.7em 1em;}
+    .lang-switch button{padding:.6em .8em;}
     .menu-toggle{display:flex;}
   }
 
@@ -499,7 +505,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
         <span>oneapple396@gmail.com</span>
       </a>
-      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">中文</button>
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Switch language">
+        <button type="button" data-lang="en" class="active">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+      </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -1253,8 +1262,9 @@
     },
   };
 
-  var toggle = document.getElementById('langToggle');
-  if(!toggle) return;
+  var switchEl = document.getElementById('langSwitch');
+  if(!switchEl) return;
+  var buttons = switchEl.querySelectorAll('button');
 
   function getSaved(){
     try { return localStorage.getItem('mulan-lang'); } catch(e){ return null; }
@@ -1277,13 +1287,12 @@
       if(TEXT[key]) el.setAttribute('placeholder', TEXT[key][lang]);
     });
     document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
-    toggle.textContent = lang === 'zh' ? 'EN' : '中文';
+    buttons.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
     save(lang);
   }
 
-  toggle.addEventListener('click', function(){
-    var current = document.documentElement.getAttribute('lang') === 'zh-CN' ? 'zh' : 'en';
-    applyLang(current === 'zh' ? 'en' : 'zh');
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
   });
 
   var initial = getSaved() || 'en';
