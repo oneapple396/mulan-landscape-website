@@ -211,15 +211,27 @@
     showSignIn();
   });
 
+  function showSetPassword(){
+    isSettingPassword = true;
+    authTitle.textContent = 'Set your password';
+    authHint.textContent = 'Welcome! Choose a password for your admin account.';
+    document.getElementById('authEmail').closest('.field').style.display = 'none';
+    authBtn.textContent = 'Set password & continue';
+    authScreen.style.display = 'block';
+    dashboard.style.display = 'none';
+  }
+
+  // Invite / recovery links land here with type=invite|recovery in the URL hash.
+  // Detect that directly instead of relying on a specific onAuthStateChange event name,
+  // since an "invite" link signs the user in (SIGNED_IN) rather than firing PASSWORD_RECOVERY.
+  var hash = window.location.hash || '';
+  if(/type=(invite|recovery)/.test(hash)){
+    showSetPassword();
+  }
+
   sb.auth.onAuthStateChange(function(event, session){
     if(event === 'PASSWORD_RECOVERY'){
-      isSettingPassword = true;
-      authTitle.textContent = 'Set your password';
-      authHint.textContent = 'Welcome! Choose a password for your admin account.';
-      document.getElementById('authEmail').closest('.field').style.display = 'none';
-      authBtn.textContent = 'Set password & continue';
-      authScreen.style.display = 'block';
-      dashboard.style.display = 'none';
+      showSetPassword();
     }
   });
 
