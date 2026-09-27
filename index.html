@@ -1103,8 +1103,8 @@
   var btn = document.getElementById('svSubmitBtn');
   if(!btn) return;
 
-  var SUPABASE_URL = 'YOUR_SUPABASE_URL';
-  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  var SUPABASE_URL = 'https://vsgggqheczvweaouoezz.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzZ2dncWhlY3p2d2Vhb3VvZXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NjAyMzgsImV4cCI6MjEwNjAzNjIzOH0.Z8d4cbx5h5vdy6yJWd8agaSw6SisuHVrQ6XAq8AC4mk';
   var sb = (window.supabase && SUPABASE_URL.indexOf('YOUR_') !== 0)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
