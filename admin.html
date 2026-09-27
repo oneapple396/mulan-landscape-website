@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mulan Landscape — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#FBF9F3; --surface:#FFFFFF; --surface-alt:#EEF4EA; --text:#20281F; --text-muted:#5B6555;
+    --primary:#1F4A34; --primary-strong:#123420; --primary-soft:#DDEBDF;
+    --accent:#DD82A3; --accent-soft:#F6D6E1; --accent-strong:#C4638A;
+    --border:#DEE5D6; --shadow:31,74,52; --focus:#3F7D52;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Work Sans",-apple-system,sans-serif;font-size:16px;line-height:1.55;}
+  h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;color:var(--primary);margin:0;}
+  a{color:var(--primary);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+
+  header{background:var(--primary-strong);color:#EFF4EC;padding:20px 0;}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;}
+  header h1{color:#fff;font-size:1.3rem;}
+  #signOutBtn{display:none;background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:.5em 1.2em;font-family:inherit;font-size:.85rem;cursor:pointer;}
+  #signOutBtn:hover{background:rgba(255,255,255,.12);}
+
+  main{padding:36px 0 80px;}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 16px 32px -22px rgba(var(--shadow),.35);}
+
+  #authScreen{max-width:380px;margin:60px auto 0;}
+  #authScreen h2{font-size:1.3rem;margin-bottom:6px;}
+  #authScreen p{color:var(--text-muted);font-size:.9rem;margin-bottom:20px;}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .field label{font-size:.82rem;font-weight:600;}
+  .field input{font-family:inherit;font-size:.96rem;padding:.7em .85em;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);}
+  .field input:focus{outline:none;border-color:var(--focus);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.8em 1.4em;border-radius:999px;border:none;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit;background:var(--primary);color:#fff;width:100%;}
+  .btn:hover{background:var(--primary-strong);}
+  .btn:disabled{opacity:.6;cursor:not-allowed;}
+  .error-msg{color:var(--accent-strong);font-size:.85rem;margin-top:10px;min-height:1.2em;}
+
+  #dashboard{display:none;}
+  .dash-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+  .dash-head p{color:var(--text-muted);font-size:.9rem;}
+
+  .submission{margin-bottom:16px;}
+  .sub-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .sub-top h3{font-family:"Work Sans",sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);}
+  .sub-top time{font-size:.8rem;color:var(--text-muted);white-space:nowrap;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:.9rem;}
+  .grid2 .k{color:var(--text-muted);}
+  .grid2 .row{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--border);}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+  .tag{background:var(--primary-soft);color:var(--primary);font-size:.78rem;padding:.25em .7em;border-radius:999px;}
+  .files{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;}
+  .files a{font-size:.82rem;background:var(--surface-alt);padding:.4em .8em;border-radius:999px;text-decoration:none;}
+  .files img{width:70px;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
+  .empty{text-align:center;color:var(--text-muted);padding:60px 20px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Mulan Landscape — Admin</h1>
+    <button id="signOutBtn" type="button">Sign out</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div id="authScreen" class="card">
+    <h2 id="authTitle">Sign in</h2>
+    <p id="authHint">Sign in to view submitted client inquiries.</p>
+    <div class="field"><label for="authEmail">Email</label><input type="email" id="authEmail"></div>
+    <div class="field"><label for="authPassword">Password</label><input type="password" id="authPassword"></div>
+    <button class="btn" id="authBtn" type="button">Sign in</button>
+    <p class="error-msg" id="authError"></p>
+  </div>
+
+  <div id="dashboard">
+    <div class="dash-head">
+      <div>
+        <h1>Client Inquiries</h1>
+        <p id="countText"></p>
+      </div>
+    </div>
+    <div id="list"></div>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var SUPABASE_URL = 'https://vsgggqheczvweaouoezz.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzZ2dncWhlY3p2d2Vhb3VvZXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NjAyMzgsImV4cCI6MjEwNjAzNjIzOH0.Z8d4cbx5h5vdy6yJWd8agaSw6SisuHVrQ6XAq8AC4mk';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var authScreen = document.getElementById('authScreen');
+  var dashboard = document.getElementById('dashboard');
+  var signOutBtn = document.getElementById('signOutBtn');
+  var authTitle = document.getElementById('authTitle');
+  var authHint = document.getElementById('authHint');
+  var authBtn = document.getElementById('authBtn');
+  var authError = document.getElementById('authError');
+  var isSettingPassword = false;
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+  function fmtList(arr){
+    return (arr && arr.length) ? arr.map(function(v){ return '<span class="tag">' + esc(v) + '</span>'; }).join('') : '<span class="k">—</span>';
+  }
+  function fmtDate(d){
+    if(!d) return '—';
+    try { return new Date(d).toLocaleString(); } catch(e){ return d; }
+  }
+
+  async function loadSubmissions(){
+    var listEl = document.getElementById('list');
+    var countEl = document.getElementById('countText');
+    listEl.innerHTML = '<p class="empty">Loading…</p>';
+    var res = await sb.from('survey_submissions').select('*').order('created_at', { ascending: false });
+    if(res.error){
+      listEl.innerHTML = '<p class="empty">Could not load submissions: ' + esc(res.error.message) + '</p>';
+      return;
+    }
+    var rows = res.data || [];
+    countEl.textContent = rows.length + (rows.length === 1 ? ' inquiry' : ' inquiries');
+    if(!rows.length){
+      listEl.innerHTML = '<p class="empty">No submissions yet.</p>';
+      return;
+    }
+    listEl.innerHTML = rows.map(function(r){
+      var files = [];
+      (r.inspiration_image_urls || []).forEach(function(u){
+        files.push('<a href="' + esc(u) + '" target="_blank" rel="noopener"><img src="' + esc(u) + '" alt="Inspiration photo"></a>');
+      });
+      if(r.plot_map_url){
+        files.push('<a href="' + esc(r.plot_map_url) + '" target="_blank" rel="noopener">Plot map ↗</a>');
+      }
+      return '' +
+        '<div class="card submission">' +
+          '<div class="sub-top">' +
+            '<h3>' + esc(r.name || 'Unnamed') + '</h3>' +
+            '<time>' + fmtDate(r.created_at) + '</time>' +
+          '</div>' +
+          '<div class="grid2">' +
+            '<div class="row"><span class="k">Phone</span>' + esc(r.phone) + '</div>' +
+            '<div class="row"><span class="k">Email</span>' + esc(r.email) + '</div>' +
+            '<div class="row"><span class="k">Project start date</span>' + esc(r.project_start_date) + '</div>' +
+            '<div class="row"><span class="k">Property address</span>' + esc(r.address) + '</div>' +
+            '<div class="row"><span class="k">Household size</span>' + esc(r.household_size) + '</div>' +
+            '<div class="row"><span class="k">Children</span>' + esc(r.num_children) + (r.children_ages ? ' (' + esc(r.children_ages) + ')' : '') + '</div>' +
+            '<div class="row"><span class="k">Pets</span>' + esc(r.pets) + '</div>' +
+            '<div class="row"><span class="k">Budget</span>' + esc(r.budget) + '</div>' +
+            '<div class="row"><span class="k">Material preference</span>' + esc(r.material) + '</div>' +
+            '<div class="row"><span class="k">HOA approval</span>' + esc(r.hoa) + '</div>' +
+          '</div>' +
+          '<div class="row" style="border:none;margin-top:8px;"><span class="k">Functional spaces</span><div class="tags">' + fmtList(r.spaces) + '</div>' + (r.spaces_other ? '<div style="margin-top:4px;">Other: ' + esc(r.spaces_other) + '</div>' : '') + '</div>' +
+          '<div class="row" style="border:none;"><span class="k">Plant preference</span><div class="tags">' + fmtList(r.plants) + '</div></div>' +
+          '<div class="row" style="border:none;"><span class="k">Utilities & lighting</span><div class="tags">' + fmtList(r.utilities) + '</div></div>' +
+          (r.notes ? '<div class="row" style="border:none;"><span class="k">Notes</span>' + esc(r.notes) + '</div>' : '') +
+          (files.length ? '<div class="files">' + files.join('') + '</div>' : '') +
+        '</div>';
+    }).join('');
+  }
+
+  function showDashboard(){
+    authScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    signOutBtn.style.display = 'inline-flex';
+    loadSubmissions();
+  }
+  function showSignIn(){
+    authScreen.style.display = 'block';
+    dashboard.style.display = 'none';
+    signOutBtn.style.display = 'none';
+  }
+
+  authBtn.addEventListener('click', async function(){
+    authError.textContent = '';
+    authBtn.disabled = true;
+    var email = document.getElementById('authEmail').value.trim();
+    var password = document.getElementById('authPassword').value;
+
+    try {
+      if(isSettingPassword){
+        var upd = await sb.auth.updateUser({ password: password });
+        if(upd.error) throw upd.error;
+        showDashboard();
+      } else {
+        var res = await sb.auth.signInWithPassword({ email: email, password: password });
+        if(res.error) throw res.error;
+        showDashboard();
+      }
+    } catch(err) {
+      authError.textContent = err.message || 'Sign in failed.';
+    }
+    authBtn.disabled = false;
+  });
+
+  signOutBtn.addEventListener('click', async function(){
+    await sb.auth.signOut();
+    showSignIn();
+  });
+
+  sb.auth.onAuthStateChange(function(event, session){
+    if(event === 'PASSWORD_RECOVERY'){
+      isSettingPassword = true;
+      authTitle.textContent = 'Set your password';
+      authHint.textContent = 'Welcome! Choose a password for your admin account.';
+      document.getElementById('authEmail').closest('.field').style.display = 'none';
+      authBtn.textContent = 'Set password & continue';
+      authScreen.style.display = 'block';
+      dashboard.style.display = 'none';
+    }
+  });
+
+  sb.auth.getSession().then(function(res){
+    if(res.data.session && !isSettingPassword){
+      showDashboard();
+    }
+  });
+})();
+</script>
+</body>
+</html>
