@@ -871,6 +871,8 @@
         <h3 data-i18n="sv-h3-notes">Additional Notes</h3>
         <div class="field"><textarea id="sv-notes" data-i18n-placeholder="sv-notes-placeholder" placeholder="Anything else you'd like us to know..."></textarea></div>
 
+        <input type="text" id="sv-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
         <div class="summary-actions">
           <button class="btn btn-primary" id="svSubmitBtn" type="button" data-i18n="survey-submit-btn">Submit</button>
           <span class="send-note" id="svToast" style="transition:opacity .2s ease;font-weight:600;"></span>
@@ -1148,10 +1150,6 @@
   }
 
   btn.addEventListener('click', async function(){
-    if(!sb){
-      setStatus('error', 'var(--accent-strong)');
-      return;
-    }
     btn.disabled = true;
     setStatus('submitting');
 
@@ -1191,8 +1189,14 @@
         plot_map_url: plotMapUrl
       };
 
-      var insertRes = await sb.from('survey_submissions').insert(row);
-      if(insertRes.error) throw insertRes.error;
+      var website = document.getElementById('sv-website');
+      row.website = website ? website.value : '';
+      var resp = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(row)
+      });
+      if(!resp.ok) throw new Error('submit failed: ' + resp.status);
 
       setStatus('submitted');
       document.querySelectorAll('.survey-card input[type=text], .survey-card input[type=tel], .survey-card input[type=email], .survey-card input[type=date], .survey-card input[type=number], .survey-card textarea').forEach(function(el){ el.value = ''; });

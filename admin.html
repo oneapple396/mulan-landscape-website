@@ -126,12 +126,23 @@
     var listEl = document.getElementById('list');
     var countEl = document.getElementById('countText');
     listEl.innerHTML = '<p class="empty">Loading…</p>';
-    var res = await sb.from('survey_submissions').select('*').order('created_at', { ascending: false });
-    if(res.error){
-      listEl.innerHTML = '<p class="empty">Could not load submissions: ' + esc(res.error.message) + '</p>';
+    var sess = await sb.auth.getSession();
+    var token = sess.data.session ? sess.data.session.access_token : '';
+    var rows = [];
+    try {
+      var resp = await fetch('/api/submissions', { headers: { Authorization: 'Bearer ' + token } });
+      if(resp.status === 401){
+        await sb.auth.signOut();
+        showSignIn();
+        authError.textContent = 'This account is not authorized to view inquiries.';
+        return;
+      }
+      if(!resp.ok) throw new Error('Server returned ' + resp.status);
+      rows = (await resp.json()).rows || [];
+    } catch(err) {
+      listEl.innerHTML = '<p class="empty">Could not load submissions: ' + esc(err.message) + '</p>';
       return;
     }
-    var rows = res.data || [];
     countEl.textContent = rows.length + (rows.length === 1 ? ' inquiry' : ' inquiries');
     if(!rows.length){
       listEl.innerHTML = '<p class="empty">No submissions yet.</p>';
