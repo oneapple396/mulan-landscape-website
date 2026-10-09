@@ -450,6 +450,56 @@
   .footer-bottom{margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:#9FC0A6;position:relative;z-index:1;}
   @media (max-width:760px){.footer-grid{grid-template-columns:1fr;}}
 
+  /* AI chat assistant */
+  .chat-fab{
+    position:fixed;right:20px;bottom:20px;z-index:260;display:inline-flex;align-items:center;gap:8px;
+    padding:.85em 1.3em;border-radius:999px;border:none;background:var(--primary);color:var(--surface);
+    font:600 .95rem "Work Sans",sans-serif;cursor:pointer;box-shadow:0 14px 30px -12px rgba(var(--shadow),.6);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .chat-fab svg{width:20px;height:20px;flex:none;}
+  .chat-fab:hover{background:var(--primary-strong);transform:translateY(-1px);}
+  .chat-fab[aria-expanded="true"]{display:none;}
+  .chat-panel{
+    position:fixed;right:20px;bottom:20px;z-index:260;width:380px;max-width:calc(100vw - 24px);
+    height:min(580px,calc(100vh - 40px));display:flex;flex-direction:column;overflow:hidden;
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;
+    box-shadow:0 30px 70px -24px rgba(var(--shadow),.55);animation:chatin .22s ease;
+  }
+  .chat-panel[hidden]{display:none;}
+  @keyframes chatin{from{opacity:0;transform:translateY(12px) scale(.98);}to{opacity:1;transform:none;}}
+  .chat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:var(--primary);color:var(--surface);}
+  .chat-head strong{display:block;font-family:"Fraunces",Georgia,serif;font-size:1.08rem;font-weight:600;line-height:1.2;}
+  .chat-head small{display:block;margin-top:2px;font-size:.76rem;opacity:.85;}
+  .chat-close{flex:none;width:44px;height:44px;margin:-8px -8px -8px 0;border:none;border-radius:50%;background:transparent;color:inherit;font-size:1.7rem;line-height:1;cursor:pointer;}
+  .chat-close:hover{background:rgba(127,127,127,.25);}
+  .chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg);overscroll-behavior:contain;}
+  .chat-msg{max-width:88%;padding:.65em .95em;border-radius:16px;font-size:.93rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;}
+  .chat-msg.bot{align-self:flex-start;background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:5px;}
+  .chat-msg.me{align-self:flex-end;background:var(--primary);color:var(--surface);border-bottom-right-radius:5px;}
+  .chat-msg.err{align-self:flex-start;background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-bottom-left-radius:5px;}
+  .chat-typing{display:inline-flex;align-items:center;gap:5px;padding:.85em 1em;}
+  .chat-typing i{width:7px;height:7px;border-radius:50%;background:var(--text-muted);animation:chatdot 1.2s infinite ease-in-out;}
+  .chat-typing i:nth-child(2){animation-delay:.15s;}
+  .chat-typing i:nth-child(3){animation-delay:.3s;}
+  @keyframes chatdot{0%,80%,100%{opacity:.25;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+  @media (prefers-reduced-motion:reduce){.chat-panel,.chat-typing i{animation:none;}}
+  .chat-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px;background:var(--bg);}
+  .chat-chips[hidden]{display:none;}
+  .chat-chip{display:inline-flex;align-items:center;min-height:40px;border:1.5px solid var(--border);background:var(--surface);color:var(--primary);border-radius:999px;padding:.4em .95em;font:500 .84rem "Work Sans",sans-serif;cursor:pointer;text-align:left;}
+  .chat-chip:hover{background:var(--primary-soft);border-color:var(--primary);}
+  .chat-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border);background:var(--surface);}
+  .chat-form input{flex:1;min-width:0;font:inherit;font-size:16px;padding:.7em 1em;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);}
+  .chat-form input:focus{outline:none;border-color:var(--focus);}
+  .chat-send{flex:none;width:46px;height:46px;border-radius:50%;border:none;background:var(--primary);color:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .chat-send svg{width:20px;height:20px;}
+  .chat-send:disabled{opacity:.5;cursor:not-allowed;}
+  .chat-note{margin:0;padding:0 16px 12px;font-size:.72rem;line-height:1.4;color:var(--text-muted);text-align:center;background:var(--surface);}
+  @media (max-width:560px){
+    .chat-panel{left:8px;right:8px;bottom:8px;width:auto;max-width:none;height:min(78vh,640px);}
+    .chat-fab{right:14px;bottom:14px;}
+  }
+
   /* falling cherry blossom petals */
   .petal-field{position:fixed;inset:0;pointer-events:none;z-index:250;overflow:hidden;}
   .petal{
@@ -933,6 +983,30 @@
   </div>
 </footer>
 
+<!-- AI CHAT ASSISTANT -->
+<button class="chat-fab" id="chatFab" type="button" aria-expanded="false" aria-controls="chatPanel">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9.5L4 20.5V5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  <span data-i18n="chat-fab">Ask us</span>
+</button>
+<section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chatTitle" hidden>
+  <header class="chat-head">
+    <div>
+      <strong id="chatTitle" data-i18n="chat-title">Mulan Assistant</strong>
+      <small data-i18n="chat-sub">AI assistant &middot; replies in seconds</small>
+    </div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">&times;</button>
+  </header>
+  <div class="chat-body" id="chatBody" role="log" aria-live="polite"></div>
+  <div class="chat-chips" id="chatChips"></div>
+  <form class="chat-form" id="chatForm" autocomplete="off">
+    <input type="text" id="chatInput" maxlength="500" aria-label="Your question" data-i18n-placeholder="chat-placeholder" placeholder="Type your question&hellip;">
+    <button class="chat-send" id="chatSend" type="submit" aria-label="Send">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-5 16-3.5-6.5L4 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
+  </form>
+  <p class="chat-note" data-i18n="chat-note">AI replies may contain mistakes. For quotes or scheduling, please contact us directly.</p>
+</section>
+
 <div class="lightbox" id="lightbox" hidden>
   <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">&times;</button>
   <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
@@ -1263,6 +1337,11 @@
     'footer-area': { en: 'Service area', zh: '服务区域' },
     'footer-area-text': { en: 'Irvine, Great Park & Orange County', zh: '尔湾、大公园及橙县地区' },
     'footer-license': { en: 'C-27 Landscape License No. 1120564', zh: 'C-27景观承包商执照编号 1120564' },
+    'chat-fab': { en: 'Ask us', zh: '在线咨询' },
+    'chat-title': { en: 'Mulan Assistant', zh: '木兰助手' },
+    'chat-sub': { en: 'AI assistant · replies in seconds', zh: 'AI 助手 · 秒级回复' },
+    'chat-placeholder': { en: 'Type your question…', zh: '输入您的问题…' },
+    'chat-note': { en: 'AI replies may contain mistakes. For quotes or scheduling, please contact us directly.', zh: 'AI 回答可能有误。报价或预约请直接联系我们。' },
     'survey-lede': { en: "Fill this out before our first meeting so we can design a space that truly fits your family.", zh: '请在初次见面前填写此表，帮助我们为您的家庭量身设计。' },
     'sv-h3-basic': { en: 'Basic Information', zh: '基本信息' },
     'sv-label-name': { en: 'Name', zh: '姓名' },
@@ -1351,6 +1430,169 @@
 
   var initial = getSaved() || 'en';
   applyLang(initial);
+})();
+
+(function(){
+  var fab = document.getElementById('chatFab');
+  if(!fab) return;
+  var panel = document.getElementById('chatPanel');
+  var bodyEl = document.getElementById('chatBody');
+  var chipsEl = document.getElementById('chatChips');
+  var form = document.getElementById('chatForm');
+  var input = document.getElementById('chatInput');
+  var sendBtn = document.getElementById('chatSend');
+  var closeBtn = document.getElementById('chatClose');
+
+  var STR = {
+    greeting: {
+      en: 'Hi! I’m the Mulan Landscape AI assistant. Ask me about our services, how we work, our service area, or how to start your project.',
+      zh: '您好！我是木兰景观的 AI 助手。可以问我服务内容、工作流程、服务区域，或者如何开始您的项目。'
+    },
+    chips: {
+      en: ['What services do you offer?', 'Do you help with HOA approval?', 'How do I start a project?'],
+      zh: ['你们提供哪些服务？', '可以协助 HOA 报批吗？', '怎样开始一个项目？']
+    },
+    close: { en: 'Close chat', zh: '关闭' },
+    send: { en: 'Send', zh: '发送' },
+    typing: { en: 'Assistant is typing', zh: '助手正在输入' },
+    errors: {
+      rate_limited: { en: 'You’re sending messages very quickly. Please wait a few minutes and try again.', zh: '消息发送过于频繁，请等几分钟后再试。' },
+      busy: { en: 'The assistant is busy right now. Please try again in a moment.', zh: '助手现在比较忙，请稍后再试。' },
+      server_error: { en: 'Sorry, something went wrong. Please try again, or contact us directly.', zh: '抱歉，出了点问题。请重试，或直接联系我们。' },
+      network: { en: 'Couldn’t reach the assistant. Please check your connection and try again, or contact us directly.', zh: '无法连接到助手。请检查网络后重试，或直接联系我们。' }
+    }
+  };
+  function lang(){ return document.documentElement.getAttribute('lang') === 'zh-CN' ? 'zh' : 'en'; }
+
+  var history = [];
+  var busy = false;
+  var greetingEl = null;
+
+  function save(){
+    try { sessionStorage.setItem('mulan-chat', JSON.stringify(history.slice(-10))); } catch(e){}
+  }
+  function scrollDown(){
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+  function addMsg(kind, text){
+    var el = document.createElement('div');
+    el.className = 'chat-msg ' + kind;
+    el.textContent = text;
+    bodyEl.appendChild(el);
+    scrollDown();
+    return el;
+  }
+  function addTyping(){
+    var el = document.createElement('div');
+    el.className = 'chat-msg bot chat-typing';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-label', STR.typing[lang()]);
+    el.innerHTML = '<i></i><i></i><i></i>';
+    bodyEl.appendChild(el);
+    scrollDown();
+    return el;
+  }
+  function renderChips(){
+    chipsEl.innerHTML = '';
+    chipsEl.hidden = history.length > 0;
+    STR.chips[lang()].forEach(function(q){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chat-chip';
+      b.textContent = q;
+      b.addEventListener('click', function(){ sendMessage(q); });
+      chipsEl.appendChild(b);
+    });
+  }
+  function renderStaticText(){
+    if(greetingEl) greetingEl.textContent = STR.greeting[lang()];
+    closeBtn.setAttribute('aria-label', STR.close[lang()]);
+    sendBtn.setAttribute('aria-label', STR.send[lang()]);
+    renderChips();
+  }
+  function setBusy(on){
+    busy = on;
+    sendBtn.disabled = on;
+    input.readOnly = on;
+  }
+
+  async function sendMessage(text){
+    text = (text || '').trim().slice(0, 500);
+    if(!text || busy) return;
+    setBusy(true);
+    chipsEl.hidden = true;
+    addMsg('me', text);
+    history.push({ role: 'user', content: text });
+    save();
+    input.value = '';
+    var typing = addTyping();
+    try {
+      var r = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history.slice(-10), lang: lang() })
+      });
+      var data = null;
+      try { data = await r.json(); } catch(_){}
+      typing.remove();
+      if(r.ok && data && data.reply){
+        history.push({ role: 'assistant', content: data.reply });
+        addMsg('bot', data.reply);
+        save();
+      } else {
+        var code = data && data.error;
+        history.pop();
+        save();
+        addMsg('err', (STR.errors[code] || STR.errors.server_error)[lang()]);
+      }
+    } catch(err){
+      typing.remove();
+      history.pop();
+      save();
+      addMsg('err', STR.errors.network[lang()]);
+    }
+    setBusy(false);
+    input.focus();
+  }
+
+  function openChat(){
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    scrollDown();
+    input.focus();
+  }
+  function closeChat(){
+    panel.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+    fab.focus();
+  }
+
+  fab.addEventListener('click', openChat);
+  closeBtn.addEventListener('click', closeChat);
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    sendMessage(input.value);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !panel.hidden) closeChat();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#langSwitch button'), function(b){
+    b.addEventListener('click', function(){ setTimeout(renderStaticText, 0); });
+  });
+
+  greetingEl = addMsg('bot', STR.greeting[lang()]);
+  try {
+    var saved = JSON.parse(sessionStorage.getItem('mulan-chat') || '[]');
+    if(Array.isArray(saved)){
+      saved.forEach(function(m){
+        if(m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string'){
+          history.push({ role: m.role, content: m.content });
+          addMsg(m.role === 'user' ? 'me' : 'bot', m.content);
+        }
+      });
+    }
+  } catch(e){}
+  renderStaticText();
 })();
 </script>
 
