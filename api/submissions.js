@@ -1,4 +1,5 @@
-const { getDb, listSubmissions, verifyAdmin } = require('./_lib');
+const { getDb, listSubmissions } = require('./_lib');
+const { verifyAdminRequest } = require('./_admin');
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
@@ -6,12 +7,9 @@ module.exports = async (req, res) => {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  if (!(await verifyAdmin(req))) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
   try {
-    const db = await getDb();
-    const rows = await listSubmissions(db);
+    if (!(await verifyAdminRequest(req))) return res.status(401).json({ error: 'Unauthorized' });
+    const rows = await listSubmissions(await getDb());
     return res.status(200).json({ rows });
   } catch (e) {
     console.error('list failed:', e && e.message);

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Mulan Landscape — Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap">
@@ -14,243 +15,509 @@
     --border:#DEE5D6; --shadow:31,74,52; --focus:#3F7D52;
   }
   *,*::before,*::after{box-sizing:border-box;}
+  [hidden]{display:none!important;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:"Work Sans",-apple-system,sans-serif;font-size:16px;line-height:1.55;}
-  h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;color:var(--primary);margin:0;}
-  a{color:var(--primary);}
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:600;color:var(--primary);margin:0;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+  .muted{color:var(--text-muted);font-size:.9rem;}
 
-  header{background:var(--primary-strong);color:#EFF4EC;padding:20px 0;}
-  header .wrap{display:flex;align-items:center;justify-content:space-between;}
-  header h1{color:#fff;font-size:1.3rem;}
-  #signOutBtn{display:none;background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:.5em 1.2em;font-family:inherit;font-size:.85rem;cursor:pointer;}
+  header.top{background:var(--primary-strong);color:#EFF4EC;padding:18px 0;}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  header.top h1{color:#fff;font-size:1.25rem;}
+  .hdr-actions{display:flex;align-items:center;gap:12px;font-size:.85rem;}
+  #signOutBtn{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:.5em 1.2em;font-family:inherit;font-size:.85rem;cursor:pointer;}
   #signOutBtn:hover{background:rgba(255,255,255,.12);}
+  main{padding:30px 0 80px;}
 
-  main{padding:36px 0 80px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 16px 32px -24px rgba(var(--shadow),.35);}
+  .empty{text-align:center;color:var(--text-muted);padding:60px 20px;}
 
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 16px 32px -22px rgba(var(--shadow),.35);}
-
-  #authScreen{max-width:380px;margin:60px auto 0;}
+  #authScreen{max-width:400px;margin:50px auto 0;}
   #authScreen h2{font-size:1.3rem;margin-bottom:6px;}
-  #authScreen p{color:var(--text-muted);font-size:.9rem;margin-bottom:20px;}
+  #authScreen p.hint{color:var(--text-muted);font-size:.9rem;margin:0 0 18px;}
   .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
   .field label{font-size:.82rem;font-weight:600;}
-  .field input{font-family:inherit;font-size:.96rem;padding:.7em .85em;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);}
+  .field input{font-family:inherit;font-size:16px;padding:.7em .85em;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);}
   .field input:focus{outline:none;border-color:var(--focus);}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.8em 1.4em;border-radius:999px;border:none;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit;background:var(--primary);color:#fff;width:100%;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:.8em 1.4em;border-radius:999px;border:none;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit;background:var(--primary);color:#fff;width:100%;}
   .btn:hover{background:var(--primary-strong);}
   .btn:disabled{opacity:.6;cursor:not-allowed;}
-  .error-msg{color:var(--accent-strong);font-size:.85rem;margin-top:10px;min-height:1.2em;}
+  .error-msg{color:var(--accent-strong);font-size:.88rem;margin:10px 0 0;min-height:1.2em;}
 
-  #dashboard{display:none;}
-  .dash-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
-  .dash-head p{color:var(--text-muted);font-size:.9rem;}
+  .tabs{display:flex;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--border);}
+  .tab{background:none;border:none;border-bottom:3px solid transparent;padding:.7em 1.1em;font-family:inherit;font-size:.95rem;font-weight:600;color:var(--text-muted);cursor:pointer;margin-bottom:-1px;}
+  .tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+
+  .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .seg{display:inline-flex;border:1.5px solid var(--border);border-radius:999px;overflow:hidden;background:var(--surface);}
+  .seg button{border:none;background:transparent;padding:.5em 1.1em;font-family:inherit;font-size:.85rem;font-weight:600;color:var(--text-muted);cursor:pointer;}
+  .seg button.active{background:var(--primary);color:#fff;}
+  .live{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:600;color:var(--primary);background:var(--primary-soft);padding:.4em .9em;border-radius:999px;}
+  .live i{width:8px;height:8px;border-radius:50%;background:#2E9E5B;display:inline-block;}
+  .link-btn{background:none;border:none;color:var(--primary);font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:underline;padding:0;}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+  .stat-label{font-size:.78rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .stat-value{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:600;color:var(--primary);line-height:1.2;margin-top:2px;font-variant-numeric:tabular-nums;}
+  .stat-sub{font-size:.78rem;color:var(--text-muted);margin-top:2px;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .grid .card h3,.card-title{font-size:1.02rem;margin-bottom:12px;}
+  .span2{grid-column:1 / -1;}
+  .legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-muted);margin-bottom:6px;}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;}
+  .legend .l1::before{background:var(--primary);}
+  .legend .l2::before{background:var(--accent-strong);border-radius:50%;}
+  svg.chart{width:100%;height:auto;display:block;}
+
+  ul.bars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .bar-top{display:flex;justify-content:space-between;gap:10px;font-size:.88rem;}
+  .bar-label{overflow-wrap:anywhere;}
+  .bar-num{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;}
+  .bar{height:7px;background:var(--surface-alt);border-radius:999px;margin-top:4px;overflow:hidden;}
+  .bar i{display:block;height:100%;background:var(--primary);border-radius:999px;}
+  .bar.pink i{background:var(--accent);}
+
+  table.t{width:100%;border-collapse:collapse;font-size:.86rem;}
+  table.t th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);padding:0 8px 8px 0;font-weight:600;}
+  table.t td{padding:8px 8px 8px 0;border-top:1px solid var(--border);vertical-align:top;}
+  table.t td.num,table.t th.num{text-align:right;padding-right:0;font-variant-numeric:tabular-nums;}
+  .scroll-x{overflow-x:auto;}
+  .pill{display:inline-block;background:var(--accent-soft);color:var(--accent-strong);border-radius:999px;font-size:.72rem;font-weight:700;padding:.1em .6em;}
+
+  .funnel{display:flex;flex-direction:column;gap:12px;}
+  .funnel-row .bar{height:12px;}
+
+  ul.recent{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+  ul.recent li{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--border);font-size:.86rem;}
+  ul.recent li:first-child{border-top:none;}
+  ul.recent time{flex:none;width:92px;color:var(--text-muted);font-size:.78rem;padding-top:1px;}
+  ul.recent .what{font-weight:600;}
+  ul.recent .meta{color:var(--text-muted);font-size:.8rem;}
+
+  .optout{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);margin:18px 0 0;}
+  .footnote{font-size:.8rem;color:var(--text-muted);margin-top:14px;}
 
   .submission{margin-bottom:16px;}
   .sub-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
   .sub-top h3{font-family:"Work Sans",sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);}
   .sub-top time{font-size:.8rem;color:var(--text-muted);white-space:nowrap;}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:.9rem;}
-  .grid2 .k{color:var(--text-muted);}
-  .grid2 .row{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--border);}
+  .k{color:var(--text-muted);}
+  .row{display:flex;flex-direction:column;padding:6px 0;border-bottom:1px dashed var(--border);}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
   .tag{background:var(--primary-soft);color:var(--primary);font-size:.78rem;padding:.25em .7em;border-radius:999px;}
   .files{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;}
-  .files a{font-size:.82rem;background:var(--surface-alt);padding:.4em .8em;border-radius:999px;text-decoration:none;}
+  .files a{font-size:.82rem;background:var(--surface-alt);padding:.4em .8em;border-radius:999px;text-decoration:none;color:var(--primary);}
   .files img{width:70px;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
-  .empty{text-align:center;color:var(--text-muted);padding:60px 20px;}
-  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  @media (max-width:760px){
+    .grid{grid-template-columns:1fr;}
+    .grid2{grid-template-columns:1fr;}
+    .stat-value{font-size:1.6rem;}
+    ul.recent li{flex-direction:column;gap:2px;}
+    ul.recent time{width:auto;}
+  }
 </style>
 </head>
 <body>
 
-<header>
+<header class="top">
   <div class="wrap">
     <h1>Mulan Landscape — Admin</h1>
-    <button id="signOutBtn" type="button">Sign out</button>
+    <div class="hdr-actions"><span id="who"></span><button id="signOutBtn" type="button" hidden>Sign out</button></div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <div id="authScreen" class="card">
-    <h2 id="authTitle">Sign in</h2>
-    <p id="authHint">Sign in to view submitted client inquiries.</p>
-    <div class="field"><label for="authEmail">Email</label><input type="email" id="authEmail"></div>
-    <div class="field"><label for="authPassword">Password</label><input type="password" id="authPassword"></div>
-    <button class="btn" id="authBtn" type="button">Sign in</button>
-    <p class="error-msg" id="authError"></p>
-  </div>
+  <p class="empty" id="loading">Loading…</p>
 
-  <div id="dashboard">
-    <div class="dash-head">
-      <div>
-        <h1>Client Inquiries</h1>
-        <p id="countText"></p>
-      </div>
+  <form id="authScreen" class="card" hidden novalidate>
+    <h2 id="authTitle">Sign in</h2>
+    <p class="hint" id="authHint">Sign in to see your website visits and client inquiries.</p>
+    <div class="field" id="emailField"><label for="authEmail">Email</label><input type="email" id="authEmail" autocomplete="username" value="oneapple396@gmail.com"></div>
+    <div class="field"><label for="authPassword" id="pwLabel">Password</label><input type="password" id="authPassword" autocomplete="current-password"></div>
+    <div class="field" id="confirmField" hidden><label for="authPassword2">Confirm password</label><input type="password" id="authPassword2" autocomplete="new-password"></div>
+    <button class="btn" id="authBtn" type="submit">Sign in</button>
+    <p class="error-msg" id="authError" role="alert"></p>
+  </form>
+
+  <div id="dashboard" hidden>
+    <div class="tabs" role="tablist">
+      <button class="tab active" id="tabOverview" type="button" role="tab">Overview</button>
+      <button class="tab" id="tabInquiries" type="button" role="tab">Inquiries</button>
     </div>
-    <div id="list"></div>
+
+    <section id="overview">
+      <div class="toolbar">
+        <div class="seg" id="rangeSeg" role="group" aria-label="Date range">
+          <button type="button" data-range="7">7 days</button>
+          <button type="button" data-range="30" class="active">30 days</button>
+          <button type="button" data-range="90">90 days</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <span class="live" id="liveBadge"><i></i><span id="liveText">0 online now</span></span>
+          <button class="link-btn" id="refreshBtn" type="button">Refresh</button>
+          <span class="muted" id="updatedText"></span>
+        </div>
+      </div>
+      <div id="overviewBody"><p class="empty">Loading statistics…</p></div>
+      <label class="optout"><input type="checkbox" id="notrack"> Don’t count my own visits on this browser</label>
+    </section>
+
+    <section id="inquiries" hidden>
+      <div class="toolbar"><div><h2 style="font-size:1.3rem;">Client Inquiries</h2><p class="muted" id="countText"></p></div></div>
+      <div id="list"></div>
+    </section>
   </div>
 
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  var SUPABASE_URL = 'https://vsgggqheczvweaouoezz.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzZ2dncWhlY3p2d2Vhb3VvZXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NjAyMzgsImV4cCI6MjEwNjAzNjIzOH0.Z8d4cbx5h5vdy6yJWd8agaSw6SisuHVrQ6XAq8AC4mk';
-  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  var authScreen = document.getElementById('authScreen');
-  var dashboard = document.getElementById('dashboard');
-  var signOutBtn = document.getElementById('signOutBtn');
-  var authTitle = document.getElementById('authTitle');
-  var authHint = document.getElementById('authHint');
-  var authBtn = document.getElementById('authBtn');
-  var authError = document.getElementById('authError');
-  var isSettingPassword = false;
+  var $ = function(id){ return document.getElementById(id); };
+  var state = { range: 30, timer: null, inquiriesLoaded: false };
+  var setupToken = null;
 
   function esc(s){
     var d = document.createElement('div');
     d.textContent = s == null ? '' : String(s);
     return d.innerHTML;
   }
+  function num(n){ return Number(n || 0).toLocaleString(); }
+  function fmtDate(d){ if(!d) return '—'; try { return new Date(d).toLocaleString(); } catch(e){ return d; } }
+
+  async function api(path, opts){
+    opts = opts || {};
+    var init = { method: opts.method || 'GET', credentials: 'same-origin', headers: {} };
+    if(opts.body){ init.headers['Content-Type'] = 'application/json'; init.body = JSON.stringify(opts.body); }
+    var r = await fetch(path, init);
+    var data = null;
+    try { data = await r.json(); } catch(e){}
+    return { ok: r.ok, status: r.status, data: data };
+  }
+
+  /* ---------- screens ---------- */
+  function show(which){
+    $('loading').hidden = which !== 'loading';
+    $('authScreen').hidden = which !== 'auth';
+    $('dashboard').hidden = which !== 'dashboard';
+    $('signOutBtn').hidden = which !== 'dashboard';
+    if(which !== 'dashboard'){ $('who').textContent = ''; }
+  }
+  function showSignIn(message){
+    setupToken = null;
+    $('authTitle').textContent = 'Sign in';
+    $('authHint').textContent = 'Sign in to see your website visits and client inquiries.';
+    $('emailField').hidden = false;
+    $('confirmField').hidden = true;
+    $('pwLabel').textContent = 'Password';
+    $('authPassword').setAttribute('autocomplete', 'current-password');
+    $('authBtn').textContent = 'Sign in';
+    $('authError').textContent = message || '';
+    show('auth');
+  }
+  function showSetup(){
+    $('authTitle').textContent = 'Create your password';
+    $('authHint').textContent = 'Welcome! Choose a password for your admin account (at least 10 characters). Only you will know it.';
+    $('emailField').hidden = true;
+    $('confirmField').hidden = false;
+    $('pwLabel').textContent = 'New password';
+    $('authPassword').setAttribute('autocomplete', 'new-password');
+    $('authBtn').textContent = 'Save password & continue';
+    $('authError').textContent = '';
+    show('auth');
+  }
+
+  var AUTH_ERRORS = {
+    invalid_credentials: 'Incorrect email or password.',
+    too_many_attempts: 'Too many attempts. Please wait about 15 minutes and try again.',
+    invalid_token: 'This setup link is invalid or has expired. Ask for a new one.',
+    weak_password: 'Please choose a password with at least 10 characters.',
+    forbidden: 'Request blocked. Please reload the page and try again.'
+  };
+
+  $('authScreen').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('authError');
+    err.textContent = '';
+    var pw = $('authPassword').value;
+    var btn = $('authBtn');
+    if(setupToken){
+      if(pw.length < 10){ err.textContent = AUTH_ERRORS.weak_password; return; }
+      if(pw !== $('authPassword2').value){ err.textContent = 'The two passwords do not match.'; return; }
+    } else if(!pw){ err.textContent = 'Please enter your password.'; return; }
+    btn.disabled = true;
+    try {
+      var r = setupToken
+        ? await api('/api/admin?action=setup', { method: 'POST', body: { token: setupToken, password: pw } })
+        : await api('/api/admin?action=login', { method: 'POST', body: { email: $('authEmail').value, password: pw } });
+      if(!r.ok){ err.textContent = AUTH_ERRORS[r.data && r.data.error] || 'Something went wrong. Please try again.'; }
+      else {
+        $('authPassword').value = ''; $('authPassword2').value = '';
+        try { if(localStorage.getItem('mulan-notrack') === null) localStorage.setItem('mulan-notrack', '1'); } catch(_){}
+        setupToken = null;
+        openDashboard(r.data.email);
+      }
+    } catch(ex){ err.textContent = 'Could not reach the server. Please try again.'; }
+    btn.disabled = false;
+  });
+
+  $('signOutBtn').addEventListener('click', async function(){
+    try { await api('/api/admin?action=logout', { method: 'POST', body: {} }); } catch(e){}
+    clearInterval(state.timer);
+    state.inquiriesLoaded = false;
+    showSignIn();
+  });
+
+  function openDashboard(email){
+    $('who').textContent = email || '';
+    show('dashboard');
+    selectTab('overview');
+    loadOverview();
+    clearInterval(state.timer);
+    state.timer = setInterval(function(){
+      if(!document.hidden && !$('overview').hidden) loadOverview(true);
+    }, 60000);
+  }
+
+  function selectTab(which){
+    var ov = which === 'overview';
+    $('tabOverview').classList.toggle('active', ov);
+    $('tabInquiries').classList.toggle('active', !ov);
+    $('overview').hidden = !ov;
+    $('inquiries').hidden = ov;
+    if(!ov && !state.inquiriesLoaded) loadInquiries();
+  }
+  $('tabOverview').addEventListener('click', function(){ selectTab('overview'); });
+  $('tabInquiries').addEventListener('click', function(){ selectTab('inquiries'); });
+
+  Array.prototype.forEach.call($('rangeSeg').querySelectorAll('button'), function(b){
+    b.addEventListener('click', function(){
+      state.range = parseInt(b.getAttribute('data-range'), 10);
+      Array.prototype.forEach.call($('rangeSeg').querySelectorAll('button'), function(x){ x.classList.toggle('active', x === b); });
+      loadOverview();
+    });
+  });
+  $('refreshBtn').addEventListener('click', function(){ loadOverview(); });
+
+  try { $('notrack').checked = localStorage.getItem('mulan-notrack') === '1'; } catch(e){}
+  $('notrack').addEventListener('change', function(){
+    try { localStorage.setItem('mulan-notrack', this.checked ? '1' : '0'); } catch(e){}
+  });
+
+  /* ---------- overview ---------- */
+  function niceMax(v){
+    if(v <= 4) return 4;
+    var p = Math.pow(10, Math.floor(Math.log(v) / Math.LN10));
+    var f = v / p;
+    var n = f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10;
+    return n * p;
+  }
+  function chartSvg(series){
+    var W = 720, H = 240, pl = 38, pr = 10, pt = 12, pb = 28;
+    var n = series.length;
+    var max = niceMax(Math.max.apply(null, series.map(function(s){ return Math.max(s.views, s.visitors); }).concat([1])));
+    var step = (W - pl - pr) / n;
+    var bw = Math.max(2, Math.min(26, step * 0.62));
+    var y = function(v){ return pt + (H - pt - pb) * (1 - v / max); };
+    var out = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Daily visitors and page views">';
+    for(var g = 0; g <= 4; g++){
+      var gv = max * g / 4, gy = y(gv);
+      out += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + gy + '" y2="' + gy + '" stroke="#DEE5D6" stroke-width="1"/>' +
+             '<text x="' + (pl - 6) + '" y="' + (gy + 4) + '" text-anchor="end" font-size="11" fill="#5B6555">' + Math.round(gv) + '</text>';
+    }
+    var every = Math.ceil(n / 8), pts = [];
+    series.forEach(function(s, i){
+      var cx = pl + (i + 0.5) * step;
+      var label = s.day.slice(5);
+      out += '<rect x="' + (cx - bw / 2) + '" y="' + y(s.visitors) + '" width="' + bw + '" height="' + (H - pb - y(s.visitors)) + '" rx="2" fill="#1F4A34"><title>' + esc(s.day) + ': ' + s.visitors + ' visitors, ' + s.views + ' page views</title></rect>';
+      pts.push(cx + ',' + y(s.views));
+      if((n - 1 - i) % every === 0) out +='<text x="' + cx + '" y="' + (H - 8) + '" text-anchor="middle" font-size="11" fill="#5B6555">' + esc(label) + '</text>';
+    });
+    out += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#C4638A" stroke-width="2" stroke-linejoin="round"/>';
+    series.forEach(function(s, i){
+      out += '<circle cx="' + (pl + (i + 0.5) * step) + '" cy="' + y(s.views) + '" r="' + (n > 40 ? 1.6 : 2.6) + '" fill="#C4638A"><title>' + esc(s.day) + ': ' + s.views + ' page views</title></circle>';
+    });
+    return out + '</svg>';
+  }
+  function barList(rows, labelFn, valKey, pink){
+    if(!rows || !rows.length) return '<p class="muted">No data yet.</p>';
+    var max = Math.max.apply(null, rows.map(function(r){ return r[valKey]; }).concat([1]));
+    return '<ul class="bars">' + rows.map(function(r){
+      return '<li><div class="bar-top"><span class="bar-label">' + labelFn(r) + '</span><span class="bar-num">' + num(r[valKey]) + '</span></div>' +
+             '<div class="bar' + (pink ? ' pink' : '') + '"><i style="width:' + Math.max(2, Math.round(r[valKey] / max * 100)) + '%"></i></div></li>';
+    }).join('') + '</ul>';
+  }
+  function pct(a, b){ return b ? (Math.round(a / b * 1000) / 10) + '%' : '0%'; }
+
+  var EVT = {
+    click_phone: 'Tapped the phone number', click_email: 'Tapped the email address', survey_start: 'Started the project form',
+    survey_submit: 'Submitted the project form', chat_open: 'Opened the AI chat', chat_message: 'Asked the AI chat a question',
+    lang_zh: 'Switched to 中文', lang_en: 'Switched to English'
+  };
+  var SECTION_NAMES = { 'portfolio-gallery': 'Big yards gallery', 'small-medium-yard': 'Small to medium yards gallery', about: 'About', survey: 'Project form', reviews: 'Client reviews' };
+
+  function renderOverview(d){
+    var t = d.totals, ev = d.events;
+    $('liveText').textContent = t.live_visitors + ' online now';
+    $('updatedText').textContent = 'Updated ' + new Date(d.generated_at).toLocaleTimeString();
+    var chatters = ev.chat_message.visitors;
+    var html = '';
+
+    if(!t.views){
+      html += '<div class="card" style="margin-bottom:16px;"><h3 class="card-title">Tracking is on</h3><p class="muted" style="margin:0;">No visits recorded in this period yet. Numbers appear here as soon as visitors arrive. Your own visits are not counted on browsers where you signed in.</p></div>';
+    }
+
+    html += '<div class="stats">' +
+      stat('Visitors', num(t.visitors), 'daily unique, last ' + d.range + ' days') +
+      stat('Page views', num(t.views), t.visitors ? (Math.round(t.views / t.visitors * 10) / 10) + ' per visitor' : '') +
+      stat('Inquiries', num(t.inquiries_in_range), 'project forms received') +
+      stat('Conversion', pct(ev.survey_submit.visitors, t.visitors), 'visitors who sent the form') +
+      stat('Phone / email taps', num(ev.click_phone.count + ev.click_email.count), ev.click_phone.count + ' phone, ' + ev.click_email.count + ' email') +
+      stat('AI chat users', num(chatters), num(ev.chat_message.count) + ' questions asked') +
+    '</div>';
+
+    html += '<div class="card span2" style="margin-bottom:16px;"><h3 class="card-title">Visits per day</h3>' +
+      '<div class="legend"><span class="l1">Visitors</span><span class="l2">Page views</span></div>' + chartSvg(d.series) + '</div>';
+
+    html += '<div class="grid">';
+    html += '<div class="card"><h3 class="card-title">From visit to inquiry</h3><div class="funnel">' +
+      funnelRow('Visitors', t.visitors, t.visitors) +
+      funnelRow('Started the form', ev.survey_start.visitors, t.visitors) +
+      funnelRow('Sent the form', ev.survey_submit.visitors, t.visitors) +
+      funnelRow('Used the AI chat', chatters, t.visitors) +
+      funnelRow('Tapped phone or email', Math.max(ev.click_phone.visitors, ev.click_email.visitors), t.visitors) +
+    '</div></div>';
+    html += '<div class="card"><h3 class="card-title">How far visitors scroll</h3>' + barList(d.sections.map(function(s){ return { id: s.id, visitors: s.visitors }; }),
+      function(r){ return esc(SECTION_NAMES[r.id] || r.id) + ' <span class="muted">(' + pct(r.visitors, t.visitors) + ')</span>'; }, 'visitors') + '</div>';
+
+    html += '<div class="card"><h3 class="card-title">Where visitors come from</h3>' + barList(d.channels, function(r){ return esc(r.name); }, 'visitors') +
+      '<p class="footnote">Paid ads = Google Ads clicks. Add <code>?utm_source=...</code> to links you share to see them as their own source.</p></div>';
+    html += '<div class="card"><h3 class="card-title">Results by channel</h3><div class="scroll-x">' + conversionTable(d.conversions_by_channel) + '</div></div>';
+
+    html += '<div class="card span2"><h3 class="card-title">Sources and campaigns</h3><div class="scroll-x">' + sourcesTable(d) + '</div></div>';
+
+    html += '<div class="card"><h3 class="card-title">Cities</h3>' + barList(d.cities, function(r){ return esc(r.name) + (r.country && r.country !== 'US' ? ' <span class="muted">' + esc(r.country) + '</span>' : ''); }, 'visitors') + '</div>';
+    html += '<div class="card"><h3 class="card-title">Countries</h3>' + barList(d.countries, function(r){ return esc(r.name); }, 'visitors') + '</div>';
+    html += '<div class="card"><h3 class="card-title">Devices</h3>' + barList(d.devices, function(r){ return esc(r.name); }, 'visitors', true) + '</div>';
+    html += '<div class="card"><h3 class="card-title">Browsers</h3>' + barList(d.browsers, function(r){ return esc(r.name); }, 'visitors', true) + '</div>';
+    html += '<div class="card"><h3 class="card-title">Site language</h3>' + barList(d.languages, function(r){ return esc(r.name); }, 'visitors') + '</div>';
+    html += '<div class="card"><h3 class="card-title">Pages</h3>' + barList(d.pages, function(r){ return esc(r.name); }, 'views') + '</div>';
+    html += '<div class="card span2"><h3 class="card-title">Recent activity</h3>' + recentList(d.recent) + '</div>';
+    html += '</div>';
+
+    html += '<p class="footnote">Visitors are counted per day: the same person visiting on two different days counts as two daily visitors. No cookies are used and no personal data or IP addresses are stored. Times use your browser’s time zone.</p>';
+    $('overviewBody').innerHTML = html;
+  }
+  function stat(label, value, sub){
+    return '<div class="stat"><div class="stat-label">' + esc(label) + '</div><div class="stat-value">' + value + '</div><div class="stat-sub">' + esc(sub || '') + '</div></div>';
+  }
+  function funnelRow(label, n, total){
+    return '<div class="funnel-row"><div class="bar-top"><span>' + esc(label) + '</span><span class="bar-num">' + num(n) + ' <span class="muted">(' + pct(n, total) + ')</span></span></div>' +
+           '<div class="bar"><i style="width:' + (total ? Math.max(n ? 2 : 0, Math.round(n / total * 100)) : 0) + '%"></i></div></div>';
+  }
+  function conversionTable(conv){
+    var channels = Object.keys(conv);
+    if(!channels.length) return '<p class="muted">No form submissions, taps or chats yet.</p>';
+    var rows = channels.map(function(ch){
+      var c = conv[ch];
+      return '<tr><td>' + esc(ch) + '</td><td class="num">' + (c.survey_submit || 0) + '</td><td class="num">' + (c.click_phone || 0) + '</td><td class="num">' + (c.click_email || 0) + '</td><td class="num">' + (c.chat_message || 0) + '</td></tr>';
+    }).join('');
+    return '<table class="t"><thead><tr><th>Channel</th><th class="num">Form</th><th class="num">Phone</th><th class="num">Email</th><th class="num">Chat</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+  function sourcesTable(d){
+    var out = '';
+    if(d.campaigns && d.campaigns.length){
+      out += '<table class="t" style="margin-bottom:18px;"><thead><tr><th>Campaign</th><th>Source / medium</th><th class="num">Visitors</th><th class="num">Views</th></tr></thead><tbody>' +
+        d.campaigns.map(function(c){
+          return '<tr><td>' + esc(c.campaign) + (c.google_ads ? ' <span class="pill">Google Ads</span>' : '') + '</td><td>' + esc([c.source, c.medium].filter(Boolean).join(' / ')) + '</td><td class="num">' + num(c.visitors) + '</td><td class="num">' + num(c.views) + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+    if(!d.sources.length) return out + '<p class="muted">No data yet.</p>';
+    return out + '<table class="t"><thead><tr><th>Source</th><th>Channel</th><th class="num">Visitors</th><th class="num">Views</th></tr></thead><tbody>' +
+      d.sources.map(function(s){ return '<tr><td>' + esc(s.name) + '</td><td>' + esc(s.channel) + '</td><td class="num">' + num(s.visitors) + '</td><td class="num">' + num(s.views) + '</td></tr>'; }).join('') + '</tbody></table>';
+  }
+  function recentList(rows){
+    if(!rows || !rows.length) return '<p class="muted">Nothing yet.</p>';
+    return '<ul class="recent">' + rows.map(function(r){
+      var what = r.type === 'pv' ? 'Visited the website' : r.name === 'section' ? 'Scrolled to “' + (SECTION_NAMES[r.label] || r.label) + '”' : (EVT[r.name] || r.name);
+      var where = [r.city, r.region].filter(Boolean).join(', ') || r.country || 'Unknown location';
+      var meta = [where, r.device, r.browser, r.channel + (r.source && r.source !== '(direct)' ? ' (' + r.source + ')' : '')].filter(Boolean).join(' · ');
+      return '<li><time>' + esc(new Date(r.ts).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })) + '</time><div><div class="what">' + esc(what) + '</div><div class="meta">' + esc(meta) + '</div></div></li>';
+    }).join('') + '</ul>';
+  }
+
+  async function loadOverview(quiet){
+    if(!quiet) $('overviewBody').innerHTML = '<p class="empty">Loading statistics…</p>';
+    var r;
+    try { r = await api('/api/analytics?range=' + state.range); }
+    catch(e){ if(!quiet) $('overviewBody').innerHTML = '<p class="empty">Could not reach the server.</p>'; return; }
+    if(r.status === 401){ showSignIn('Your session has ended. Please sign in again.'); return; }
+    if(!r.ok){ if(!quiet) $('overviewBody').innerHTML = '<p class="empty">Could not load statistics (error ' + r.status + ').</p>'; return; }
+    renderOverview(r.data);
+  }
+
+  /* ---------- inquiries ---------- */
   function fmtList(arr){
     return (arr && arr.length) ? arr.map(function(v){ return '<span class="tag">' + esc(v) + '</span>'; }).join('') : '<span class="k">—</span>';
   }
-  function fmtDate(d){
-    if(!d) return '—';
-    try { return new Date(d).toLocaleString(); } catch(e){ return d; }
-  }
-
-  async function loadSubmissions(){
-    var listEl = document.getElementById('list');
-    var countEl = document.getElementById('countText');
+  async function loadInquiries(){
+    var listEl = $('list'), countEl = $('countText');
     listEl.innerHTML = '<p class="empty">Loading…</p>';
-    var sess = await sb.auth.getSession();
-    var token = sess.data.session ? sess.data.session.access_token : '';
-    var rows = [];
-    try {
-      var resp = await fetch('/api/submissions', { headers: { Authorization: 'Bearer ' + token } });
-      if(resp.status === 401){
-        await sb.auth.signOut();
-        showSignIn();
-        authError.textContent = 'This account is not authorized to view inquiries.';
-        return;
-      }
-      if(!resp.ok) throw new Error('Server returned ' + resp.status);
-      rows = (await resp.json()).rows || [];
-    } catch(err) {
-      listEl.innerHTML = '<p class="empty">Could not load submissions: ' + esc(err.message) + '</p>';
-      return;
-    }
+    var r;
+    try { r = await api('/api/submissions'); } catch(e){ listEl.innerHTML = '<p class="empty">Could not reach the server.</p>'; return; }
+    if(r.status === 401){ showSignIn('Your session has ended. Please sign in again.'); return; }
+    if(!r.ok){ listEl.innerHTML = '<p class="empty">Could not load inquiries (error ' + r.status + ').</p>'; return; }
+    var rows = (r.data && r.data.rows) || [];
+    state.inquiriesLoaded = true;
     countEl.textContent = rows.length + (rows.length === 1 ? ' inquiry' : ' inquiries');
-    if(!rows.length){
-      listEl.innerHTML = '<p class="empty">No submissions yet.</p>';
-      return;
-    }
+    if(!rows.length){ listEl.innerHTML = '<p class="empty">No submissions yet.</p>'; return; }
     listEl.innerHTML = rows.map(function(r){
       var files = [];
       (r.inspiration_image_urls || []).forEach(function(u){
         files.push('<a href="' + esc(u) + '" target="_blank" rel="noopener"><img src="' + esc(u) + '" alt="Inspiration photo"></a>');
       });
-      if(r.plot_map_url){
-        files.push('<a href="' + esc(r.plot_map_url) + '" target="_blank" rel="noopener">Plot map ↗</a>');
-      }
-      return '' +
-        '<div class="card submission">' +
-          '<div class="sub-top">' +
-            '<h3>' + esc(r.name || 'Unnamed') + '</h3>' +
-            '<time>' + fmtDate(r.created_at) + '</time>' +
-          '</div>' +
-          '<div class="grid2">' +
-            '<div class="row"><span class="k">Phone</span>' + esc(r.phone) + '</div>' +
-            '<div class="row"><span class="k">Email</span>' + esc(r.email) + '</div>' +
-            '<div class="row"><span class="k">Project start date</span>' + esc(r.project_start_date) + '</div>' +
-            '<div class="row"><span class="k">Property address</span>' + esc(r.address) + '</div>' +
-            '<div class="row"><span class="k">Household size</span>' + esc(r.household_size) + '</div>' +
-            '<div class="row"><span class="k">Children</span>' + esc(r.num_children) + (r.children_ages ? ' (' + esc(r.children_ages) + ')' : '') + '</div>' +
-            '<div class="row"><span class="k">Pets</span>' + esc(r.pets) + '</div>' +
-            '<div class="row"><span class="k">Budget</span>' + esc(r.budget) + '</div>' +
-            '<div class="row"><span class="k">Material preference</span>' + esc(r.material) + '</div>' +
-            '<div class="row"><span class="k">HOA approval</span>' + esc(r.hoa) + '</div>' +
-          '</div>' +
-          '<div class="row" style="border:none;margin-top:8px;"><span class="k">Functional spaces</span><div class="tags">' + fmtList(r.spaces) + '</div>' + (r.spaces_other ? '<div style="margin-top:4px;">Other: ' + esc(r.spaces_other) + '</div>' : '') + '</div>' +
-          '<div class="row" style="border:none;"><span class="k">Plant preference</span><div class="tags">' + fmtList(r.plants) + '</div></div>' +
-          '<div class="row" style="border:none;"><span class="k">Utilities & lighting</span><div class="tags">' + fmtList(r.utilities) + '</div></div>' +
-          (r.notes ? '<div class="row" style="border:none;"><span class="k">Notes</span>' + esc(r.notes) + '</div>' : '') +
-          (files.length ? '<div class="files">' + files.join('') + '</div>' : '') +
-        '</div>';
+      if(r.plot_map_url) files.push('<a href="' + esc(r.plot_map_url) + '" target="_blank" rel="noopener">Plot map ↗</a>');
+      return '<div class="card submission">' +
+        '<div class="sub-top"><h3>' + esc(r.name || 'Unnamed') + '</h3><time>' + esc(fmtDate(r.created_at)) + '</time></div>' +
+        '<div class="grid2">' +
+          '<div class="row"><span class="k">Phone</span>' + esc(r.phone) + '</div>' +
+          '<div class="row"><span class="k">Email</span>' + esc(r.email) + '</div>' +
+          '<div class="row"><span class="k">Project start date</span>' + esc(r.project_start_date) + '</div>' +
+          '<div class="row"><span class="k">Property address</span>' + esc(r.address) + '</div>' +
+          '<div class="row"><span class="k">Household size</span>' + esc(r.household_size) + '</div>' +
+          '<div class="row"><span class="k">Children</span>' + esc(r.num_children) + (r.children_ages ? ' (' + esc(r.children_ages) + ')' : '') + '</div>' +
+          '<div class="row"><span class="k">Pets</span>' + esc(r.pets) + '</div>' +
+          '<div class="row"><span class="k">Budget</span>' + esc(r.budget) + '</div>' +
+          '<div class="row"><span class="k">Material preference</span>' + esc(r.material) + '</div>' +
+          '<div class="row"><span class="k">HOA approval</span>' + esc(r.hoa) + '</div>' +
+        '</div>' +
+        '<div class="row" style="border:none;margin-top:8px;"><span class="k">Functional spaces</span><div class="tags">' + fmtList(r.spaces) + '</div>' + (r.spaces_other ? '<div style="margin-top:4px;">Other: ' + esc(r.spaces_other) + '</div>' : '') + '</div>' +
+        '<div class="row" style="border:none;"><span class="k">Plant preference</span><div class="tags">' + fmtList(r.plants) + '</div></div>' +
+        '<div class="row" style="border:none;"><span class="k">Utilities &amp; lighting</span><div class="tags">' + fmtList(r.utilities) + '</div></div>' +
+        (r.notes ? '<div class="row" style="border:none;"><span class="k">Notes</span>' + esc(r.notes) + '</div>' : '') +
+        (files.length ? '<div class="files">' + files.join('') + '</div>' : '') +
+      '</div>';
     }).join('');
   }
 
-  function showDashboard(){
-    authScreen.style.display = 'none';
-    dashboard.style.display = 'block';
-    signOutBtn.style.display = 'inline-flex';
-    loadSubmissions();
-  }
-  function showSignIn(){
-    authScreen.style.display = 'block';
-    dashboard.style.display = 'none';
-    signOutBtn.style.display = 'none';
-  }
-
-  authBtn.addEventListener('click', async function(){
-    authError.textContent = '';
-    authBtn.disabled = true;
-    var email = document.getElementById('authEmail').value.trim();
-    var password = document.getElementById('authPassword').value;
-
+  /* ---------- start ---------- */
+  (async function init(){
+    var m = /[#&]setup=([A-Za-z0-9_-]+)/.exec(location.hash);
+    if(m){
+      setupToken = m[1];
+      try { history.replaceState(null, '', location.pathname); } catch(e){}
+      showSetup();
+      return;
+    }
     try {
-      if(isSettingPassword){
-        var upd = await sb.auth.updateUser({ password: password });
-        if(upd.error) throw upd.error;
-        showDashboard();
-      } else {
-        var res = await sb.auth.signInWithPassword({ email: email, password: password });
-        if(res.error) throw res.error;
-        showDashboard();
-      }
-    } catch(err) {
-      authError.textContent = err.message || 'Sign in failed.';
-    }
-    authBtn.disabled = false;
-  });
-
-  signOutBtn.addEventListener('click', async function(){
-    await sb.auth.signOut();
-    showSignIn();
-  });
-
-  function showSetPassword(){
-    isSettingPassword = true;
-    authTitle.textContent = 'Set your password';
-    authHint.textContent = 'Welcome! Choose a password for your admin account.';
-    document.getElementById('authEmail').closest('.field').style.display = 'none';
-    authBtn.textContent = 'Set password & continue';
-    authScreen.style.display = 'block';
-    dashboard.style.display = 'none';
-  }
-
-  // Invite / recovery links land here with type=invite|recovery in the URL hash.
-  // Detect that directly instead of relying on a specific onAuthStateChange event name,
-  // since an "invite" link signs the user in (SIGNED_IN) rather than firing PASSWORD_RECOVERY.
-  var hash = window.location.hash || '';
-  if(/type=(invite|recovery)/.test(hash)){
-    showSetPassword();
-  }
-
-  sb.auth.onAuthStateChange(function(event, session){
-    if(event === 'PASSWORD_RECOVERY'){
-      showSetPassword();
-    }
-  });
-
-  sb.auth.getSession().then(function(res){
-    if(res.data.session && !isSettingPassword){
-      showDashboard();
-    }
-  });
+      var me = await api('/api/admin?action=me');
+      if(me.ok) openDashboard(me.data.email); else showSignIn();
+    } catch(e){ showSignIn('Could not reach the server. Please reload the page.'); }
+  })();
 })();
 </script>
 </body>

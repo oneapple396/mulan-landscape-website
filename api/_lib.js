@@ -1,10 +1,13 @@
 const { MongoClient } = require('mongodb');
 
 const SUPABASE_URL = 'https://vsgggqheczvweaouoezz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzZ2dncWhlY3p2d2Vhb3VvZXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NjAyMzgsImV4cCI6MjEwNjAzNjIzOH0.Z8d4cbx5h5vdy6yJWd8agaSw6SisuHVrQ6XAq8AC4mk';
-const ADMIN_EMAIL = 'oneapple396@gmail.com';
 const FILE_URL_PREFIX = SUPABASE_URL + '/storage/v1/object/public/';
 const COLLECTION = 'survey_submissions';
+
+// COLLECTION_PREFIX lets local development use separate collections (e.g. "dev_") so tests never touch live data.
+function collection(db, name) {
+  return db.collection((process.env.COLLECTION_PREFIX || '') + name);
+}
 
 const cache = global.__mongoCache || (global.__mongoCache = { promise: null });
 
@@ -57,30 +60,13 @@ async function insertSubmission(db, body) {
     throw err;
   }
   doc.created_at = new Date();
-  const res = await db.collection(COLLECTION).insertOne(doc);
+  const res = await collection(db, COLLECTION).insertOne(doc);
   return String(res.insertedId);
 }
 
 async function listSubmissions(db) {
-  const rows = await db.collection(COLLECTION).find({}).sort({ created_at: -1 }).limit(500).toArray();
+  const rows = await collection(db, COLLECTION).find({}).sort({ created_at: -1 }).limit(500).toArray();
   return rows.map((r) => ({ ...r, id: String(r._id), _id: undefined }));
 }
 
-async function verifyAdmin(req, fetchFn) {
-  const f = fetchFn || fetch;
-  const auth = (req.headers && (req.headers.authorization || req.headers.Authorization)) || '';
-  const m = /^Bearer\s+(.+)$/i.exec(auth);
-  if (!m) return false;
-  try {
-    const r = await f(SUPABASE_URL + '/auth/v1/user', {
-      headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + m[1] },
-    });
-    if (!r.ok) return false;
-    const u = await r.json();
-    return !!u && typeof u.email === 'string' && u.email.toLowerCase() === ADMIN_EMAIL;
-  } catch (e) {
-    return false;
-  }
-}
-
-module.exports = { getDb, cleanSubmission, insertSubmission, listSubmissions, verifyAdmin, COLLECTION };
+module.exports = { getDb, collection, cleanSubmission, insertSubmission, listSubmissions, COLLECTION };
